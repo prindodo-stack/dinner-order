@@ -125,7 +125,7 @@ details.admin-block[open]>summary:after{content:"−"}
 .slot-admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .slot-admin{padding:12px;background:#f8fbfc;border:1px solid var(--line);border-radius:13px}
 .slot-admin h4{margin:0 0 8px;color:var(--navy)}
-.inline-grid{display:grid;grid-template-columns:1fr 120px auto;gap:7px;align-items:end}
+.inline-grid{display:grid;grid-template-columns:minmax(180px,1fr) minmax(150px,170px) auto;gap:8px;align-items:end}.inline-grid input[type="time"]{min-width:150px;width:100%;white-space:nowrap}.inline-grid input[type="time"]::-webkit-datetime-edit{padding:0}.inline-grid input[type="time"]::-webkit-datetime-edit-fields-wrapper{display:flex;align-items:center}
 .missing{margin-top:8px;font-size:12px;color:var(--muted)}
 .admin-list{display:grid;gap:7px}
 .admin-row{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:8px;background:#f8fbfc;border:1px solid var(--line);border-radius:12px}
@@ -157,6 +157,7 @@ details.admin-block[open]>summary:after{content:"−"}
   .person-row .cancel-btn{grid-column:3;justify-self:start}
   .slot-admin-grid{grid-template-columns:1fr}
   .inline-grid,.admin-row.two,.admin-row.menu-admin{grid-template-columns:1fr}
+  .inline-grid input[type="time"]{min-width:0;width:100%}
   .admin-hero{grid-template-columns:1fr 1fr}
   .admin-row{grid-template-columns:1fr auto auto}
 }
