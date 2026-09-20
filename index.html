@@ -12,10 +12,7 @@
     <header class="topbar">
       <div class="brand">
         <div class="logo">🍚</div>
-        <div>
-          <h1>오늘 저녁 주문</h1>
-          <p id="dateText">불러오는 중...</p>
-        </div>
+        <div><h1>오늘 저녁 주문</h1><p id="dateText">불러오는 중...</p></div>
       </div>
       <button class="admin-btn" id="adminToggle">⚙️ 밥 당번</button>
     </header>
@@ -23,75 +20,51 @@
     <div id="connectionBanner" class="banner hidden"></div>
 
     <section class="hero">
-      <div>
-        <small>오늘의 식당</small>
-        <h2 id="restaurantName">불러오는 중...</h2>
-        <p id="restaurantDesc">Supabase에서 정보를 불러오고 있습니다.</p>
-      </div>
-      <div class="cutoff">
-        <span>주문 마감</span>
-        <strong id="cutoffView">--:--</strong>
-      </div>
+      <div><small>오늘의 식당</small><h2 id="restaurantName">불러오는 중...</h2><p id="restaurantDesc">Supabase에서 정보를 불러오고 있습니다.</p></div>
+      <div class="cutoff"><span>주문 마감</span><strong id="cutoffView">--:--</strong></div>
     </section>
 
     <main class="layout">
       <section class="card">
-        <div class="card-title">
-          <h3>내 주문</h3>
-          <span class="pill" id="myState">미응답</span>
-        </div>
-
+        <div class="card-title"><h3>내 주문</h3><span class="pill" id="myState">미응답</span></div>
         <label class="label" for="nameInput">이름</label>
         <input class="input" id="nameInput" placeholder="이름을 입력하세요" maxlength="30" autocomplete="name">
-
         <div class="switch">
           <button class="choice active" id="eatBtn">🍽️ 먹을게요</button>
           <button class="choice" id="skipBtn">🙅 오늘은 안 먹어요</button>
         </div>
-
         <div id="menuArea">
           <label class="label">메뉴 선택</label>
           <div class="menu-grid" id="menuGrid"></div>
-
           <label class="label" for="noteInput">요청사항 <span class="optional">(선택)</span></label>
           <input class="input" id="noteInput" placeholder="예: 밥 조금, 맵지 않게" maxlength="100">
         </div>
-
         <button class="submit" id="saveBtn">주문 저장하기</button>
         <p class="helper">같은 이름의 주문은 최초 주문한 기기에서 수정할 수 있습니다.</p>
       </section>
 
       <section class="card">
-        <div class="card-title">
-          <h3>오늘 주문 현황</h3>
-          <span class="pill" id="respondCount">0명 응답</span>
-        </div>
-
+        <div class="card-title"><h3>오늘 주문 현황</h3><span class="pill" id="respondCount">0명 응답</span></div>
         <div class="stats">
           <div class="stat"><strong id="eatCount">0</strong><span>식사</span></div>
           <div class="stat"><strong id="skipCount">0</strong><span>미식사</span></div>
           <div class="stat"><strong id="menuKinds">0</strong><span>메뉴 종류</span></div>
         </div>
-
         <div id="menuSummary" class="menu-summary"></div>
-        <div class="orders" id="orders">
-          <div class="empty">아직 주문이 없습니다.</div>
-        </div>
-
-        <div class="summary">
-          <span>예상 주문 금액</span>
-          <strong id="totalPrice">0원</strong>
-        </div>
+        <div class="orders" id="orders"><div class="empty">아직 주문이 없습니다.</div></div>
+        <div class="summary"><span>예상 주문 금액</span><strong id="totalPrice">0원</strong></div>
       </section>
     </main>
 
     <section class="card admin-panel hidden" id="adminPanel">
       <div class="card-title">
-        <div>
-          <h3>밥 당번 설정</h3>
-          <p class="section-desc">오늘 주문할 식당과 주문 마감시간을 지정합니다.</p>
-        </div>
+        <div><h3>밥 당번 설정</h3><p class="section-desc">PIN 인증 후 오늘의 식당과 식당·메뉴를 관리할 수 있습니다.</p></div>
         <span class="pill">관리자</span>
+      </div>
+
+      <div class="admin-auth">
+        <label class="label" for="pinInput">관리자 PIN</label>
+        <input class="input pin-input" type="password" inputmode="numeric" id="pinInput" placeholder="PIN">
       </div>
 
       <div class="admin-grid">
@@ -103,14 +76,17 @@
           <label class="label" for="cutoffInput">주문 마감</label>
           <input class="input" type="time" id="cutoffInput" value="17:40">
         </div>
-        <div>
-          <label class="label" for="pinInput">관리자 PIN</label>
-          <input class="input" type="password" inputmode="numeric" id="pinInput" placeholder="PIN">
-        </div>
         <button class="submit admin-apply" id="applyBtn">오늘 식당 적용</button>
       </div>
 
-      <div class="restaurant-tabs" id="restaurantTabs"></div>
+      <div class="admin-divider"></div>
+
+      <div class="manage-head">
+        <div><h3>식당 및 메뉴 관리</h3><p>식당 이름, 설명, 메뉴명과 가격을 수정할 수 있습니다.</p></div>
+        <button class="secondary-btn" id="addRestaurantBtn">+ 식당 추가</button>
+      </div>
+
+      <div id="restaurantEditor" class="restaurant-editor"></div>
     </section>
   </div>
 
