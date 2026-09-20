@@ -38,7 +38,7 @@ button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20p
 
 <div id="banner" class="banner hidden"></div>
 
-<div class="slotbar" id="slotBar">
+<div class="slotbar hidden" id="slotBar">
   <button class="slot active" data-slot="1"><small>주문 1</small><strong id="slotName1">불러오는 중</strong><span id="slotTime1">--:-- 마감</span></button>
   <button class="slot hidden" id="slot2Button" data-slot="2"><small>주문 2</small><strong id="slotName2">불러오는 중</strong><span id="slotTime2">--:-- 마감</span></button>
 </div>
@@ -147,8 +147,10 @@ function updateEatUI(){const eat=st.eat[st.slot];$("#eatBtn").classList.toggle("
 
 function render(){
   [1,2].forEach(s=>{const r=restaurant(s),d=day(s);$("#slotName"+s).textContent=r?.name||"미설정";$("#slotTime"+s).textContent=(d?.cutoff_time?.slice(0,5)||"--:--")+" 마감";document.querySelector(`[data-slot="${s}"]`)?.classList.toggle("active",st.slot===s)});
-  $("#slot2Button").classList.toggle("hidden",!day(2));
-  if(st.slot===2 && !day(2)) st.slot=1;
+  const hasSecondOrder=!!day(2);
+  $("#slotBar").classList.toggle("hidden",!hasSecondOrder);
+  $("#slot2Button").classList.toggle("hidden",!hasSecondOrder);
+  if(st.slot===2 && !hasSecondOrder) st.slot=1;
   const r=restaurant(st.slot),d=day(st.slot);$("#heroSlotLabel").textContent="주문 "+st.slot;$("#restaurantName").textContent=r?.name||"매장 미지정";$("#restaurantDesc").textContent=r?.description||"밥 당번이 이 주문의 매장을 지정해 주세요.";$("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";
 
   const ordered=new Set(slotOrders(st.slot).map(o=>o.member_name));
