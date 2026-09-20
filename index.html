@@ -77,8 +77,8 @@ button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20p
 
 <section class="card admin hidden" id="adminPanel">
   <div class="head">
-    <div><h3>밥 당번 관리</h3><p style="margin:4px 0 0;color:var(--muted);font-size:13px">입장 시 PIN 인증 후에는 이 화면에서 다시 입력하지 않습니다.</p></div>
-    <div class="admin-status"><span class="pill">인증됨</span><button class="btn btn-light mini" id="adminLogout">나가기</button></div>
+    <div><h3>밥 당번 관리</h3><p style="margin:4px 0 0;color:var(--muted);font-size:13px">주문 설정, 사용자, 식당·메뉴를 바로 관리할 수 있습니다.</p></div>
+    <span class="pill">관리자 설정</span>
   </div>
 
   <div class="admin-grid">
@@ -103,7 +103,8 @@ button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20p
   </div>
 
   <div class="danger-zone">
-    <button class="btn btn-danger" id="resetOrdersBtn">🗑️ 오늘 전체 주문 초기화</button>
+    <button class="btn btn-danger" id="resetSlot1Btn">🗑️ 주문 1 초기화</button>
+    <button class="btn btn-danger hidden" id="resetSlot2Btn">🗑️ 주문 2 초기화</button>
   </div>
 
   <div class="divider"></div>
@@ -123,7 +124,7 @@ const KEY="sb_publishable_3h3_2LRYgdyeXdoDO6XZMA_4jQrQTtV";
 const API=`${SUPABASE_URL}/functions/v1/meal-api`;
 const $=s=>document.querySelector(s);
 const st={restaurants:[],menus:[],members:[],days:[],orders:[],slot:1,member:null,menu:{1:null,2:null},eat:{1:true,2:true}};
-let adminSessionPin=null;
+let adminOpen=false;
 
 function dateKey(){const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t)?.value;return `${g("year")}-${g("month")}-${g("day")}`}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
@@ -150,6 +151,7 @@ function render(){
   const hasSecondOrder=!!day(2);
   $("#slotBar").classList.toggle("hidden",!hasSecondOrder);
   $("#slot2Button").classList.toggle("hidden",!hasSecondOrder);
+  $("#resetSlot2Btn")?.classList.toggle("hidden",!hasSecondOrder);
   if(st.slot===2 && !hasSecondOrder) st.slot=1;
   const r=restaurant(st.slot),d=day(st.slot);$("#heroSlotLabel").textContent="주문 "+st.slot;$("#restaurantName").textContent=r?.name||"매장 미지정";$("#restaurantDesc").textContent=r?.description||"밥 당번이 이 주문의 매장을 지정해 주세요.";$("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";
 
@@ -179,7 +181,7 @@ function renderAdmin(){
 }
 
 async function refresh(silent=false){try{const d=await api();Object.assign(st,{restaurants:d.restaurants||[],menus:d.menus||[],members:d.members||[],days:d.days||[],orders:d.orders||[]});if(st.member&&!activeU().some(u=>u.name===st.member))st.member=null;render();$("#banner").classList.add("hidden")}catch(e){$("#banner").textContent="데이터 연결 오류: "+e.message;$("#banner").classList.remove("hidden");if(!silent)toast("데이터 연결을 확인해 주세요.")}}
-async function admin(body,msg){if(!adminSessionPin)return toast("관리자 인증이 필요합니다.");try{await api({...body,pin:adminSessionPin});toast(msg);await refresh(true);return true}catch(e){if(e.message==="invalid_admin_pin"){adminSessionPin=null;$("#adminPanel").classList.add("hidden");toast("인증이 만료되었습니다. 다시 입장해 주세요.")}else toast(e.message==="member_name_exists"?"이미 등록된 이름입니다.":"처리 실패: "+e.message);return false}}
+async function admin(body,msg){try{await api(body);toast(msg);await refresh(true);return true}catch(e){toast(e.message==="member_name_exists"?"이미 등록된 이름입니다.":"처리 실패: "+e.message);return false}}
 
 $("#slotBar").onclick=e=>{const b=e.target.closest("[data-slot]");if(!b)return;st.slot=Number(b.dataset.slot);syncExisting();render()};
 $("#memberGrid").onclick=e=>{const b=e.target.closest("[data-member]");if(!b)return;st.member=b.dataset.member;localStorage.setItem("meal-last-member",st.member);syncExisting();render()};
@@ -188,11 +190,11 @@ $("#eatBtn").onclick=()=>{st.eat[st.slot]=true;updateEatUI()};
 $("#skipBtn").onclick=()=>{st.eat[st.slot]=false;updateEatUI()};
 $("#saveBtn").onclick=async()=>{if(!st.member)return toast("먼저 내 이름을 선택해 주세요.");if(!day(st.slot))return toast("이 주문은 아직 설정되지 않았습니다.");if(st.eat[st.slot]&&!st.menu[st.slot])return toast("메뉴를 선택해 주세요.");try{await api({action:"submit_order",date:dateKey(),order_slot:st.slot,name:st.member,will_eat:st.eat[st.slot],menu_id:st.eat[st.slot]?st.menu[st.slot]:null,note:$("#noteInput").value.trim(),token:token(st.member,st.slot)});toast("주문 "+st.slot+"이 저장되었습니다.");await refresh(true)}catch(e){toast(e.status===409?"같은 이름의 주문이 다른 기기에서 이미 등록되었습니다.":"저장 실패: "+e.message)}};
 
-$("#adminToggle").onclick=async()=>{if(adminSessionPin){$("#adminPanel").classList.toggle("hidden");return}const p=prompt("밥 당번 관리자 PIN을 입력하세요.");if(!p)return;try{await api({action:"admin_login",pin:p});adminSessionPin=p;$("#adminPanel").classList.remove("hidden");toast("관리자 인증이 완료되었습니다.")}catch(e){toast("PIN이 올바르지 않습니다.")}};
-$("#adminLogout").onclick=()=>{adminSessionPin=null;$("#adminPanel").classList.add("hidden");toast("관리자 화면에서 나왔습니다.")};
+$("#adminToggle").onclick=()=>{$("#adminPanel").classList.toggle("hidden")};
 document.querySelectorAll("[data-apply-slot]").forEach(b=>b.onclick=()=>{const s=Number(b.dataset.applySlot);admin({action:"admin_set_day",date:dateKey(),order_slot:s,restaurant_id:$("#restaurantSelect"+s).value,cutoff_time:$("#cutoffInput"+s).value||"17:40"},s===2?"주문 2를 사용하도록 설정했습니다.":"주문 1 설정을 적용했습니다.")});
 $("#disableSlot2Btn").onclick=async()=>{if(!day(2))return toast("현재 주문 2는 사용하지 않고 있습니다.");if(!confirm("주문 2를 사용하지 않도록 할까요? 오늘의 주문 2 응답도 함께 삭제됩니다."))return;if(await admin({action:"admin_disable_slot",date:dateKey(),order_slot:2},"주문 2를 숨겼습니다.")){st.slot=1;st.menu[2]=null}};
-$("#resetOrdersBtn").onclick=async()=>{if(!confirm("오늘의 주문 1·주문 2 응답을 모두 초기화할까요? 이 작업은 되돌릴 수 없습니다."))return;if(await admin({action:"admin_reset_orders",date:dateKey()},"오늘 전체 주문을 초기화했습니다.")){st.menu={1:null,2:null};$("#noteInput").value=""}};
+$("#resetSlot1Btn").onclick=async()=>{if(!confirm("오늘 주문 1의 응답만 초기화할까요? 이 작업은 되돌릴 수 없습니다."))return;if(await admin({action:"admin_reset_slot_orders",date:dateKey(),order_slot:1},"주문 1을 초기화했습니다.")){st.menu[1]=null;if(st.slot===1)$("#noteInput").value=""}};
+$("#resetSlot2Btn").onclick=async()=>{if(!confirm("오늘 주문 2의 응답만 초기화할까요? 이 작업은 되돌릴 수 없습니다."))return;if(await admin({action:"admin_reset_slot_orders",date:dateKey(),order_slot:2},"주문 2를 초기화했습니다.")){st.menu[2]=null;if(st.slot===2)$("#noteInput").value=""}};
 $("#addMemberBtn").onclick=async()=>{const n=prompt("추가할 사용자 이름을 입력하세요.");if(n)await admin({action:"admin_add_member",name:n},"사용자를 추가했습니다.")};
 $("#addRestaurantBtn").onclick=async()=>{const n=prompt("추가할 식당/커피숍 이름을 입력하세요.");if(!n)return;const d=prompt("설명을 입력하세요.")||"";await admin({action:"admin_add_restaurant",name:n,description:d},"매장을 추가했습니다.")};
 
