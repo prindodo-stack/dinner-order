@@ -18,7 +18,7 @@ button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20p
 .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:20px;box-shadow:0 12px 28px rgba(36,49,79,.06)}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.head h3{margin:0;color:var(--navy);font-size:19px}.pill{font-size:12px;font-weight:850;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy)}
 .label{display:block;font-size:13px;font-weight:850;margin:13px 0 7px;color:#384563}.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.member{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;font-weight:850;color:#34405d;cursor:pointer}.member.active{border-color:var(--blue);background:var(--mint);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}.member.ordered:after{content:" ✓";color:var(--ok)}
 .switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.choice{min-height:47px;border:1px solid var(--line);border-radius:13px;background:#fff;font-weight:850;color:#45506a;cursor:pointer}.choice.active{background:var(--mint);border-color:var(--blue);color:var(--navy)}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.menu{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left}.menu.active{border-color:var(--blue);background:#f2f8fa;box-shadow:0 0 0 3px rgba(149,204,221,.25)}.menu b{display:block;color:#2c3858}.menu .price{display:block;color:var(--muted);font-size:13px;margin-top:3px}.qty-row{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px}.qty-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:20px;font-weight:900;line-height:1;cursor:pointer}.qty-btn.plus{background:var(--blue);border-color:var(--blue);color:#fff}.qty{min-width:28px;text-align:center;font-weight:900;color:var(--navy)}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.menu{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left}.menu.active{border-color:var(--blue);background:#f2f8fa;box-shadow:0 0 0 3px rgba(149,204,221,.25)}.menu b{display:block;color:#2c3858}.menu .price{display:block;color:var(--muted);font-size:13px;margin-top:3px}.popular-badge{display:inline-block;margin-left:6px;padding:3px 6px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:10px;font-weight:900;vertical-align:middle}.qty-row{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px}.qty-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:20px;font-weight:900;line-height:1;cursor:pointer}.qty-btn.plus{background:var(--blue);border-color:var(--blue);color:#fff}.qty{min-width:28px;text-align:center;font-weight:900;color:var(--navy)}
 .input{width:100%;border:1px solid #d9e1e5;border-radius:12px;padding:11px 12px;background:#fff;outline:none}.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.25)}.save-order{margin-top:15px;min-height:49px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}.stat{background:#f7fafb;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.stat strong{display:block;color:var(--navy);font-size:20px}.stat span{font-size:12px;color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--mint);color:var(--navy);font-size:12px;font-weight:850;padding:6px 8px;border-radius:999px}
 .order{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}.avatar{width:33px;height:33px;border-radius:10px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}.person{font-weight:850}.dish{font-size:14px}.note{font-size:12px;color:var(--muted);margin-top:2px}.status{font-size:11px;font-weight:900;padding:5px 7px;border-radius:999px}.eat{background:#e8f7f0;color:#167b58}.skip{background:#fff0f1;color:#c24854}.total{display:flex;justify-content:space-between;align-items:center;margin-top:13px;background:#f7fafb;border:1px solid var(--line);border-radius:13px;padding:12px}.total span{font-size:13px;color:var(--muted)}.total strong{font-size:19px;color:var(--navy)}
@@ -123,7 +123,7 @@ const SUPABASE_URL="https://zyuybhszykxuafzriksn.supabase.co";
 const KEY="sb_publishable_3h3_2LRYgdyeXdoDO6XZMA_4jQrQTtV";
 const API=`${SUPABASE_URL}/functions/v1/meal-api`;
 const $=s=>document.querySelector(s);
-const st={restaurants:[],menus:[],members:[],days:[],orders:[],slot:1,member:null,qty:{1:{},2:{}},eat:{1:true,2:true}};
+const st={restaurants:[],menus:[],members:[],days:[],orders:[],popularity:[],slot:1,member:null,qty:{1:{},2:{}},eat:{1:true,2:true}};
 let adminOpen=false;
 let editingMemberId=null;
 
@@ -166,11 +166,15 @@ function render(renderAdminPanel=true){
   const ordered=new Set(slotOrders(st.slot).map(o=>o.member_name));
   $("#memberGrid").innerHTML=activeU().length?activeU().map(u=>`<button class="member ${st.member===u.name?"active":""} ${ordered.has(u.name)?"ordered":""}" data-member="${esc(u.name)}">${esc(u.name)}</button>`).join(""):'<div class="empty">밥 당번이 사용자를 등록해 주세요.</div>';
 
-  const menus=r?activeM().filter(m=>m.restaurant_id===r.id):[];
+  const popularityMap=new Map((st.popularity||[]).map(p=>[p.menu_id,Number(p.total_quantity||0)]));
+  const menus=r?activeM().filter(m=>m.restaurant_id===r.id).sort((a,b)=>{
+    const diff=(popularityMap.get(b.id)||0)-(popularityMap.get(a.id)||0);
+    return diff!==0?diff:(Number(a.sort_order||0)-Number(b.sort_order||0));
+  }):[];
   $("#menuGrid").innerHTML=menus.length?menus.map(m=>{
     const q=Number(st.qty[st.slot][m.id]||0);
     return `<div class="menu ${q>0?"active":""}" data-menu="${m.id}">
-      <b>${esc(m.name)}</b><span class="price">${money(m.price)}</span>
+      <b>${esc(m.name)}${(popularityMap.get(m.id)||0)>0?'<span class="popular-badge">자주 주문</span>':""}</b><span class="price">${money(m.price)}</span>
       <div class="qty-row">
         <button class="qty-btn" data-qty-minus="${m.id}" aria-label="${esc(m.name)} 수량 줄이기">−</button>
         <span class="qty">${q}</span>
@@ -208,7 +212,7 @@ function renderAdmin(){
 async function refresh(silent=false,forceAdminRender=false){
   try{
     const d=await api();
-    Object.assign(st,{restaurants:d.restaurants||[],menus:d.menus||[],members:d.members||[],days:d.days||[],orders:d.orders||[]});
+    Object.assign(st,{restaurants:d.restaurants||[],menus:d.menus||[],members:d.members||[],days:d.days||[],orders:d.orders||[],popularity:d.popularity||[]});
     if(st.member&&!activeU().some(u=>u.name===st.member))st.member=null;
     const adminVisible=!$("#adminPanel").classList.contains("hidden");
     render(forceAdminRender||!adminVisible);
