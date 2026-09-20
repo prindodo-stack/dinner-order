@@ -264,6 +264,14 @@ $("#menuGrid").onclick=e=>{
     const next=Math.max(0,Number(st.qty[st.slot][id]||0)-1);
     if(next===0)delete st.qty[st.slot][id];else st.qty[st.slot][id]=next;
     render(false);
+    return;
+  }
+
+  const menu=e.target.closest(".menu[data-menu]");
+  if(menu){
+    const id=menu.dataset.menu;
+    st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);
+    render(false);
   }
 };
 $("#addCustomMenuBtn").onclick=()=>{
