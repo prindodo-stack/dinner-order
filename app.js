@@ -48,7 +48,9 @@ function renderOrders(){
   state.orders.forEach(o=>{const menu=map.get(o.menu_id),row=document.createElement("div");row.className="order";row.innerHTML=`<div class="avatar">${escapeHtml(o.member_name.slice(0,1))}</div><div class="person">${escapeHtml(o.member_name)}</div><div>${o.will_eat?`<div class="dish">${escapeHtml(menu?.name||"메뉴")}</div>${o.note?`<div class="note">${escapeHtml(o.note)}</div>`:""}`:'<div class="dish" style="color:#d54c4c">오늘은 안 먹음</div>'}</div><div class="state ${o.will_eat?"eat":"skip"}">${o.will_eat?"주문":"미식사"}</div>`;wrap.appendChild(row)});
 }
 function renderEditor(){
-  const wrap=$("#restaurantEditor");wrap.innerHTML="";
+  const wrap=$("#restaurantEditor");
+  if(!wrap) return;
+  wrap.innerHTML="";
   activeRestaurants().forEach(r=>{
     const menus=activeMenus().filter(m=>m.restaurant_id===r.id);
     const box=document.createElement("div");box.className="restaurant-block";
@@ -90,11 +92,11 @@ $("#saveBtn").onclick=async()=>{
   catch(e){toast((e.status===409||e.message==="name_already_used")?"같은 이름으로 이미 다른 기기에서 주문했습니다.":`저장 실패: ${e.message}`)}
   finally{state.loading=false;btn.disabled=false;btn.textContent="주문 저장하기"}
 };
-$("#adminToggle").onclick=()=>$("#adminPanel").classList.toggle("hidden");
-$("#applyBtn").onclick=async()=>{const ok=await adminAction({action:"admin_set_day",date:koreaDate(),restaurant_id:$("#restaurantSelect").value,cutoff_time:$("#cutoffInput").value||"17:40"},"오늘의 식당을 변경했습니다.");if(ok)state.selectedMenuId=null};
-$("#addRestaurantBtn").onclick=async()=>{const name=prompt("추가할 식당 이름을 입력하세요.");if(!name)return;const desc=prompt("식당 설명을 입력하세요. (선택)")||"";await adminAction({action:"admin_add_restaurant",name,description:desc},"식당을 추가했습니다.")};
+if($("#adminToggle")) $("#adminToggle").onclick=()=>$("#adminPanel")?.classList.toggle("hidden");
+if($("#applyBtn")) $("#applyBtn").onclick=async()=>{const ok=await adminAction({action:"admin_set_day",date:koreaDate(),restaurant_id:$("#restaurantSelect").value,cutoff_time:$("#cutoffInput").value||"17:40"},"오늘의 식당을 변경했습니다.");if(ok)state.selectedMenuId=null};
+if($("#addRestaurantBtn")) $("#addRestaurantBtn").onclick=async()=>{const name=prompt("추가할 식당 이름을 입력하세요.");if(!name)return;const desc=prompt("식당 설명을 입력하세요. (선택)")||"";await adminAction({action:"admin_add_restaurant",name,description:desc},"식당을 추가했습니다.")};
 
-$("#restaurantEditor").addEventListener("click",async e=>{
+if($("#restaurantEditor")) $("#restaurantEditor").addEventListener("click",async e=>{
   const t=e.target;
   if(t.dataset.rsave){const id=t.dataset.rsave;const name=document.querySelector(`[data-rname="${id}"]`).value.trim();const description=document.querySelector(`[data-rdesc="${id}"]`).value.trim();await adminAction({action:"admin_update_restaurant",id,name,description},"식당 정보를 저장했습니다.")}
   if(t.dataset.rdelete){if(!confirm("이 식당을 삭제할까요? 과거 주문에 사용된 식당은 비활성화됩니다."))return;await adminAction({action:"admin_delete_restaurant",id:t.dataset.rdelete},"식당을 삭제했습니다.")}
