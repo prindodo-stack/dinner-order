@@ -35,3 +35,6 @@ GitHub Pages + Supabase 기반의 사무실 저녁 주문 웹앱입니다.
 - `meal_orders`
 - `meal_admin_settings`
 - Edge Function: `meal-api`
+
+
+Pages deployment trigger: 2026-09-20
