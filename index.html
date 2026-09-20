@@ -7,117 +7,314 @@
 <title>인사팀 밥당번</title>
 <style>
 *{box-sizing:border-box}
-:root{--navy:#293681;--blue:#4274D9;--aqua:#95CCDD;--mint:#D0E7E6;--bg:#f4f8f9;--card:#fff;--text:#24314f;--muted:#718096;--line:#d8e4e8;--ok:#218a67;--bad:#c94f5a}
-body{margin:0;background:linear-gradient(180deg,#f9fbfc 0,#eef5f6 100%);color:var(--text);font-family:Pretendard,"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20px 18px 48px}.hidden{display:none!important}
-.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;font-size:24px;box-shadow:0 10px 22px rgba(41,54,129,.2)}.brand h1{margin:0;color:var(--navy);font-size:27px}.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-.btn{border:0;border-radius:13px;padding:11px 14px;font-weight:850;cursor:pointer}.btn-light{background:#fff;border:1px solid var(--line);color:var(--navy)}.btn-primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}.btn-danger{background:#fff0f1;color:#bd3f4b;border:1px solid #ffd2d6}.btn-wide{width:100%}
-.banner{background:#eef7f8;border:1px solid var(--aqua);color:var(--navy);padding:12px 14px;border-radius:14px;margin-bottom:13px}
-.slotbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.slot{border:1px solid var(--line);border-radius:17px;padding:14px 15px;cursor:pointer;text-align:left;transition:.15s}.slot{background:#fff}.slot.slot-default{background:linear-gradient(135deg,#f2f6ff,#e9f0ff)}.slot.slot-cafe{background:linear-gradient(135deg,#eef4ff,#e2f1f6)}.slot.slot-korean{background:linear-gradient(135deg,#eff8f5,#dfeee9)}.slot.slot-chinese{background:linear-gradient(135deg,#fff3ee,#f8dfd4)}.slot.slot-snack{background:linear-gradient(135deg,#fff2f6,#f7e0e8)}.slot.slot-cutlet{background:linear-gradient(135deg,#fff7ed,#f2e2cc)}.slot.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.28),0 8px 18px rgba(41,54,129,.08)}.slot small{display:block;color:var(--muted);font-weight:800}.slot strong{display:block;color:var(--navy);font-size:18px;margin-top:3px}.slot span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-.hero{color:#fff;border-radius:23px;padding:23px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;box-shadow:0 18px 36px rgba(41,54,129,.18);margin-bottom:18px;transition:background .25s ease,box-shadow .25s ease}.hero.theme-default{background:linear-gradient(135deg,#293681,#4274D9 65%,#95CCDD)}.hero.theme-cafe{background:linear-gradient(135deg,#293681,#4274D9 58%,#95CCDD)}.hero.theme-korean{background:linear-gradient(135deg,#35685f,#63a99a 62%,#b9ddd7)}.hero.theme-chinese{background:linear-gradient(135deg,#8f382c,#d56a4b 62%,#edb188)}.hero.theme-snack{background:linear-gradient(135deg,#8e4666,#cf7890 62%,#e9b8c7)}.hero.theme-cutlet{background:linear-gradient(135deg,#7b5533,#bd8751 62%,#e0bd8c)}.hero small{font-weight:800;opacity:.82}.hero h2{font-size:29px;margin:5px 0}.hero p{margin:0;opacity:.87}.cutoff{min-width:112px;padding:12px;background:rgba(255,255,255,.14);border:1px solid rgba(208,231,230,.5);border-radius:15px;text-align:center}.cutoff span{font-size:12px;display:block;opacity:.82}.cutoff strong{font-size:23px}
-.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:20px;box-shadow:0 12px 28px rgba(36,49,79,.06)}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.head h3{margin:0;color:var(--navy);font-size:19px}.pill{font-size:12px;font-weight:850;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy)}
-.label{display:block;font-size:13px;font-weight:850;margin:13px 0 7px;color:#384563}.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.member{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;font-weight:850;color:#34405d;cursor:pointer}.member.active{border-color:var(--blue);background:var(--mint);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}.member.ordered:after{content:" ✓";color:var(--ok)}
-.switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.choice{min-height:47px;border:1px solid var(--line);border-radius:13px;background:#fff;font-weight:850;color:#45506a;cursor:pointer}.choice.active{background:var(--mint);border-color:var(--blue);color:var(--navy)}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.menu{border:1px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left}.menu.active{border-color:var(--blue);background:#f2f8fa;box-shadow:0 0 0 3px rgba(149,204,221,.25)}.menu b{display:block;color:#2c3858}.menu .price{display:block;color:var(--muted);font-size:13px;margin-top:3px}.popular-badge{display:inline-block;margin-left:6px;padding:3px 6px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:10px;font-weight:900;vertical-align:middle}.qty-row{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px}.qty-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:20px;font-weight:900;line-height:1;cursor:pointer}.qty-btn.plus{background:var(--blue);border-color:var(--blue);color:#fff}.qty{min-width:28px;text-align:center;font-weight:900;color:var(--navy)}.custom-add{margin-top:10px}.custom-list{display:grid;gap:8px;margin-top:8px}.custom-item{display:grid;grid-template-columns:1fr 100px auto;gap:7px;align-items:center;border:1px dashed var(--aqua);background:#f8fbfc;border-radius:12px;padding:8px}.custom-item-name{font-weight:850;color:var(--navy)}.custom-item-price{font-size:12px;color:var(--muted)}
-.input{width:100%;border:1px solid #d9e1e5;border-radius:12px;padding:11px 12px;background:#fff;outline:none}.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.25)}.save-order{margin-top:15px;min-height:49px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:11px}.stat{background:#f7fafb;border:1px solid var(--line);border-radius:13px;padding:10px;text-align:center}.stat strong{display:block;color:var(--navy);font-size:20px}.stat span{font-size:12px;color:var(--muted)}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--mint);color:var(--navy);font-size:12px;font-weight:850;padding:6px 8px;border-radius:999px}
-.order{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}.avatar{width:33px;height:33px;border-radius:10px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}.person{font-weight:850}.dish{font-size:14px}.note{font-size:12px;color:var(--muted);margin-top:2px}.order-actions{display:flex;align-items:center;gap:6px}.cancel-order{border:1px solid #f0c5c9;background:#fff7f7;color:#b94450;border-radius:9px;padding:6px 8px;font-size:11px;font-weight:850;cursor:pointer}.status{font-size:11px;font-weight:900;padding:5px 7px;border-radius:999px}.eat{background:#e8f7f0;color:#167b58}.skip{background:#fff0f1;color:#c24854}.total{display:flex;justify-content:space-between;align-items:center;margin-top:13px;background:#f7fafb;border:1px solid var(--line);border-radius:13px;padding:12px}.total span{font-size:13px;color:var(--muted)}.total strong{font-size:19px;color:var(--navy)}
-.admin{margin-top:18px}.admin-status{display:flex;gap:7px;align-items:center}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.slot-admin{border:1px solid var(--line);border-radius:16px;padding:13px;background:#f9fbfc}.slot-admin h4{margin:0 0 10px;color:var(--navy)}.slot-admin-row{display:grid;grid-template-columns:1fr 120px auto;gap:7px;align-items:end}.divider{height:1px;background:var(--line);margin:22px 0}.manage-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px}.manage-head h3{margin:0;color:var(--navy);font-size:18px}.manage-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.danger-zone{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
-.member-admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.member-admin{display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center;background:#f8fbfc;border:1px solid var(--line);border-radius:12px;padding:7px}.member-admin-name{min-width:0;padding:8px 9px;font-weight:850;color:#34405d}.member-admin input{min-width:0;border:1px solid var(--aqua);background:#fff;border-radius:9px;padding:8px 9px;outline:none;font-weight:800;color:#34405d}.member-edit-actions{display:flex;gap:5px}.mini{padding:8px 9px;border-radius:9px;font-size:12px}
-.restaurant-block{border:1px solid var(--line);border-radius:15px;padding:12px;margin-bottom:9px;background:#f9fbfc}.restaurant-row{display:grid;grid-template-columns:1fr 1.3fr auto auto;gap:7px}.menu-edit{display:grid;grid-template-columns:1fr 105px auto auto;gap:7px;margin-top:7px}.addline{margin-top:8px}.empty{padding:17px 0;text-align:center;color:#98a2b1;font-size:13px}.toast{position:fixed;right:18px;bottom:18px;background:#17223c;color:#fff;padding:12px 15px;border-radius:12px;display:none;z-index:30;box-shadow:0 12px 28px rgba(0,0,0,.2)}
-@media(max-width:820px){.grid{grid-template-columns:1fr}.admin-grid{grid-template-columns:1fr}.member-admin-grid{grid-template-columns:1fr 1fr}.restaurant-row{grid-template-columns:1fr 1fr}.menu-edit{grid-template-columns:1fr 100px auto}.slot-admin-row{grid-template-columns:1fr 120px}}
-@media(max-width:560px){.shell{padding:13px 11px 32px}.top{align-items:flex-start}.logo{width:42px;height:42px;border-radius:14px}.brand h1{font-size:21px}.brand p{font-size:12px}.btn-light{padding:9px 10px;font-size:13px}.slotbar{gap:7px}.slot{padding:11px;border-radius:14px}.slot strong{font-size:15px}.hero{padding:18px 16px;border-radius:19px}.hero h2{font-size:23px}.hero p{font-size:12px}.cutoff{min-width:88px;padding:9px}.cutoff strong{font-size:19px}.card{padding:15px;border-radius:17px}.member-grid{grid-template-columns:repeat(2,1fr)}.member{min-height:48px}.menu-grid{grid-template-columns:1fr}.order{grid-template-columns:33px 68px 1fr}.order .status{grid-column:3;justify-self:start}.member-admin-grid{grid-template-columns:1fr}.restaurant-row,.menu-edit,.slot-admin-row{grid-template-columns:1fr}.manage-head{align-items:flex-start;flex-direction:column}.manage-head .btn{width:100%}.danger-zone{display:block}.danger-zone .btn{width:100%}.toast{left:11px;right:11px;bottom:11px;text-align:center}}
+:root{
+  --navy:#293681;--blue:#4274D9;--aqua:#95CCDD;--mint:#D0E7E6;
+  --bg:#f4f8f9;--card:#fff;--text:#24314f;--muted:#728097;--line:#dce6e9;
+  --ok:#218a67;--danger:#c94f5a;--shadow:0 14px 34px rgba(41,54,129,.08)
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#fbfcfd 0,#eef5f6 100%);color:var(--text);font-family:Pretendard,"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation}
+.hidden{display:none!important}
+.app{max-width:1080px;margin:auto;padding:18px 16px 96px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.logo{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--navy),var(--blue));font-size:23px;box-shadow:0 10px 24px rgba(41,54,129,.2)}
+.brand h1{margin:0;color:var(--navy);font-size:25px;letter-spacing:-.5px}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.icon-btn,.btn{border:0;border-radius:13px;font-weight:850;cursor:pointer}
+.icon-btn{padding:10px 12px;background:#fff;border:1px solid var(--line);color:var(--navy)}
+.btn{padding:12px 14px}
+.btn-primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
+.btn-soft{background:var(--mint);color:var(--navy)}
+.btn-light{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.btn-danger{background:#fff3f4;color:#b5414c;border:1px solid #f2c7cb}
+.btn-wide{width:100%}
+.banner{background:#eef7f8;border:1px solid var(--aqua);color:var(--navy);padding:11px 13px;border-radius:13px;margin-bottom:12px;font-size:13px}
+.order-tabs{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.order-tab{border:1px solid var(--line);border-radius:15px;padding:12px;text-align:left;cursor:pointer;transition:.15s}
+.order-tab strong{display:block;color:var(--navy);font-size:16px}
+.order-tab span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.order-tab.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.25)}
+.order-tab.theme-cafe{background:linear-gradient(135deg,#eff5ff,#e1f1f6)}
+.order-tab.theme-korean{background:linear-gradient(135deg,#eef8f5,#dceee9)}
+.order-tab.theme-chinese{background:linear-gradient(135deg,#fff4ee,#f8dfd4)}
+.order-tab.theme-snack{background:linear-gradient(135deg,#fff3f7,#f7e0e8)}
+.order-tab.theme-cutlet{background:linear-gradient(135deg,#fff8ee,#f2e3cd)}
+.order-tab.theme-default{background:linear-gradient(135deg,#f2f6ff,#e8efff)}
+.hero{color:#fff;border-radius:24px;padding:22px 22px 20px;box-shadow:0 18px 36px rgba(41,54,129,.16);margin-bottom:14px;transition:.25s}
+.hero.theme-cafe{background:linear-gradient(135deg,#293681,#4274D9 58%,#95CCDD)}
+.hero.theme-korean{background:linear-gradient(135deg,#35685f,#63a99a 62%,#b9ddd7)}
+.hero.theme-chinese{background:linear-gradient(135deg,#8f382c,#d56a4b 62%,#edb188)}
+.hero.theme-snack{background:linear-gradient(135deg,#8e4666,#cf7890 62%,#e9b8c7)}
+.hero.theme-cutlet{background:linear-gradient(135deg,#7b5533,#bd8751 62%,#e0bd8c)}
+.hero.theme-default{background:linear-gradient(135deg,#293681,#4274D9 65%,#95CCDD)}
+.hero-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.hero small{font-weight:850;opacity:.8}
+.hero h2{font-size:28px;margin:5px 0 5px;letter-spacing:-.6px}
+.hero p{margin:0;opacity:.88;font-size:13px}
+.deadline{min-width:104px;padding:10px 11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:14px;text-align:center}
+.deadline span{font-size:11px;display:block;opacity:.82}
+.deadline strong{font-size:20px}
+.countdown{margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:800}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+.stack{display:grid;gap:14px}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.section-title h3{margin:0;color:var(--navy);font-size:18px}
+.section-title p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.badge{padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850}
+.label{display:block;font-size:13px;font-weight:850;color:#3b4763;margin:12px 0 7px}
+.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.member-btn{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;color:#35415f;font-weight:850;cursor:pointer}
+.member-btn.active{background:var(--mint);border-color:var(--blue);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.menu-card{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff;cursor:pointer;transition:.12s}
+.menu-card.selected{background:#f2f8fa;border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.22)}
+.menu-head{display:flex;justify-content:space-between;gap:8px}
+.menu-name{font-weight:900;color:#2d3958}
+.menu-price{font-size:12px;color:var(--muted);margin-top:3px}
+.popular{display:inline-block;margin-left:5px;padding:3px 6px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:9px;font-weight:900}
+.qty-row{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px}
+.qty-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-size:20px;font-weight:900;cursor:pointer}
+.qty-btn.plus{background:var(--blue);color:#fff;border-color:var(--blue)}
+.qty{min-width:28px;text-align:center;color:var(--navy);font-weight:900}
+.input{width:100%;border:1px solid #d9e2e5;border-radius:12px;padding:12px 13px;background:#fff;outline:none}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.22)}
+.custom-list{display:grid;gap:8px;margin-top:8px}
+.custom-row{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:9px;border:1px dashed var(--aqua);background:#f8fbfc;border-radius:12px}
+.custom-name{font-weight:850;color:var(--navy)}
+.custom-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.order-footer{position:sticky;bottom:10px;margin-top:14px;z-index:8}
+.order-submit{min-height:54px;font-size:15px;box-shadow:0 12px 24px rgba(66,116,217,.22)}
+.complete-card{padding:16px;border:1px solid #bfe0d4;background:#eef9f4;border-radius:16px}
+.complete-card h3{margin:0;color:#176f52}
+.complete-card p{margin:5px 0 0;color:#5d776e;font-size:12px}
+.complete-items{margin:11px 0;display:grid;gap:6px}
+.complete-item{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.complete-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.summary-card{display:grid;gap:12px}
+.summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{padding:11px;background:#f7fafb;border:1px solid var(--line);border-radius:13px;text-align:center}
+.stat strong{display:block;color:var(--navy);font-size:20px}
+.stat span{font-size:11px;color:var(--muted)}
+.summary-menu{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:6px 8px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850}
+.people-list{display:grid;gap:2px}
+.person-row{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}
+.avatar{width:34px;height:34px;border-radius:11px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}
+.person-name{font-weight:850}
+.person-order{font-size:13px}
+.person-note{font-size:11px;color:var(--muted);margin-top:2px}
+.cancel-btn{border:1px solid #f0c5c9;background:#fff7f7;color:#b94450;border-radius:9px;padding:7px 8px;font-size:11px;font-weight:850;cursor:pointer}
+.summary-total{display:flex;justify-content:space-between;align-items:center;padding:13px;background:#f7fafb;border:1px solid var(--line);border-radius:13px}
+.summary-total span{font-size:12px;color:var(--muted)}
+.summary-total strong{font-size:19px;color:var(--navy)}
+.admin-panel{margin-top:14px}
+.admin-hero{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.admin-metric{padding:12px;border:1px solid var(--line);background:#f8fbfc;border-radius:13px}
+.admin-metric span{font-size:11px;color:var(--muted)}
+.admin-metric strong{display:block;margin-top:2px;color:var(--navy);font-size:18px}
+details.admin-block{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden}
+details.admin-block+details.admin-block{margin-top:9px}
+details.admin-block>summary{list-style:none;cursor:pointer;padding:14px 15px;font-weight:900;color:var(--navy);display:flex;justify-content:space-between;align-items:center}
+details.admin-block>summary::-webkit-details-marker{display:none}
+details.admin-block>summary:after{content:"＋";color:var(--blue)}
+details.admin-block[open]>summary:after{content:"−"}
+.admin-content{border-top:1px solid var(--line);padding:13px}
+.slot-admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot-admin{padding:12px;background:#f8fbfc;border:1px solid var(--line);border-radius:13px}
+.slot-admin h4{margin:0 0 8px;color:var(--navy)}
+.inline-grid{display:grid;grid-template-columns:1fr 120px auto;gap:7px;align-items:end}
+.missing{margin-top:8px;font-size:12px;color:var(--muted)}
+.admin-list{display:grid;gap:7px}
+.admin-row{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:8px;background:#f8fbfc;border:1px solid var(--line);border-radius:12px}
+.admin-row.two{grid-template-columns:1fr 1.3fr auto auto}
+.admin-row.menu-admin{grid-template-columns:1fr 110px auto auto;margin-top:7px}
+.admin-name{font-weight:850;color:#36425e}
+.small{padding:8px 9px;border-radius:9px;font-size:11px}
+.danger-zone{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,28,48,.38);display:none;align-items:flex-end;justify-content:center;z-index:50;padding:14px}
+.modal-backdrop.show{display:flex}
+.modal{width:min(520px,100%);background:#fff;border-radius:22px;padding:18px;box-shadow:0 24px 60px rgba(0,0,0,.24)}
+.modal h3{margin:0 0 12px;color:var(--navy)}
+.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#17223c;color:#fff;padding:11px 14px;border-radius:12px;display:none;z-index:80;box-shadow:0 12px 28px rgba(0,0,0,.2);font-size:13px}
+@media(min-width:860px){
+  .main-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}
+  .order-footer{position:static}
+}
+@media(max-width:700px){
+  .app{padding:13px 11px 90px}
+  .brand h1{font-size:21px}
+  .logo{width:42px;height:42px}
+  .hero{padding:18px 16px;border-radius:19px}
+  .hero h2{font-size:23px}
+  .deadline{min-width:90px}
+  .member-grid{grid-template-columns:repeat(2,1fr)}
+  .menu-grid{grid-template-columns:1fr}
+  .person-row{grid-template-columns:34px 68px 1fr}
+  .person-row .cancel-btn{grid-column:3;justify-self:start}
+  .slot-admin-grid{grid-template-columns:1fr}
+  .inline-grid,.admin-row.two,.admin-row.menu-admin{grid-template-columns:1fr}
+  .admin-hero{grid-template-columns:1fr 1fr}
+  .admin-row{grid-template-columns:1fr auto auto}
+}
 </style>
 </head>
 <body>
-<div class="shell">
-<header class="top">
-  <div class="brand"><div class="logo">🍚</div><div><h1>인사팀 밥당번</h1><p id="dateText"></p></div></div>
-  <button class="btn btn-light" id="adminToggle">⚙️ 밥 당번</button>
-</header>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🍚</div>
+      <div><h1>인사팀 밥당번</h1><p id="dateText"></p></div>
+    </div>
+    <button class="icon-btn" id="adminToggle">⚙️ 밥 당번</button>
+  </header>
 
-<div id="banner" class="banner hidden"></div>
+  <div id="banner" class="banner hidden"></div>
 
-<div class="slotbar hidden" id="slotBar">
-  <button class="slot active" data-slot="1"><small>주문 1</small><strong id="slotName1">불러오는 중</strong><span id="slotTime1">--:-- 마감</span></button>
-  <button class="slot hidden" id="slot2Button" data-slot="2"><small>주문 2</small><strong id="slotName2">불러오는 중</strong><span id="slotTime2">--:-- 마감</span></button>
+  <div id="orderTabs" class="order-tabs hidden">
+    <button class="order-tab active" data-slot="1"><strong id="tabName1">주문 1</strong><span id="tabTime1">--:-- 마감</span></button>
+    <button class="order-tab" data-slot="2"><strong id="tabName2">주문 2</strong><span id="tabTime2">--:-- 마감</span></button>
+  </div>
+
+  <section class="hero theme-default">
+    <div class="hero-row">
+      <div>
+        <small id="heroLabel">오늘의 주문</small>
+        <h2 id="restaurantName">불러오는 중...</h2>
+        <p id="restaurantDesc"></p>
+        <div class="countdown" id="countdown">마감시간 확인 중</div>
+      </div>
+      <div class="deadline"><span>주문 마감</span><strong id="cutoffView">--:--</strong></div>
+    </div>
+  </section>
+
+  <div id="userView" class="main-grid">
+    <section class="stack">
+      <div class="card" id="orderCard">
+        <div class="section-title">
+          <div><h3>내 주문</h3><p>이름을 선택하고 메뉴 수량만 고르면 끝납니다.</p></div>
+          <span class="badge" id="selectedNameBadge">이름 선택</span>
+        </div>
+
+        <div id="orderComplete" class="complete-card hidden"></div>
+
+        <div id="orderForm">
+          <label class="label">1. 내 이름</label>
+          <div id="memberGrid" class="member-grid"></div>
+
+          <div id="menuSection" class="hidden">
+            <label class="label">2. 메뉴 선택</label>
+            <div id="menuGrid" class="menu-grid"></div>
+            <button class="btn btn-light btn-wide" id="addCustomMenuBtn" style="margin-top:9px">+ 직접 메뉴 추가</button>
+            <div id="customMenuList" class="custom-list"></div>
+
+            <label class="label">요청사항 <span style="font-weight:500;color:#98a2b1">(선택)</span></label>
+            <input id="noteInput" class="input" maxlength="100" placeholder="예: 곱빼기, 맵지 않게, 밥 조금">
+
+            <div class="order-footer">
+              <button class="btn btn-primary btn-wide order-submit" id="saveBtn">주문 저장하기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card summary-card">
+      <div class="section-title">
+        <div><h3>현재 주문 현황</h3><p>메뉴별 수량과 주문자를 확인할 수 있습니다.</p></div>
+        <span class="badge" id="respondCount">0명 응답</span>
+      </div>
+      <div class="summary-stats">
+        <div class="stat"><strong id="eatCount">0</strong><span>주문</span></div>
+        <div class="stat"><strong id="skipCount">0</strong><span>미주문</span></div>
+        <div class="stat"><strong id="menuKinds">0</strong><span>메뉴 종류</span></div>
+      </div>
+      <div id="menuSummary" class="summary-menu"></div>
+      <div id="orders" class="people-list"></div>
+      <div class="summary-total"><span>예상 주문 금액</span><strong id="totalPrice">0원</strong></div>
+    </section>
+  </div>
+
+  <section id="adminPanel" class="admin-panel hidden">
+    <div class="card">
+      <div class="section-title">
+        <div><h3>밥 당번 대시보드</h3><p>오늘 주문 상태와 설정을 한 화면에서 관리합니다.</p></div>
+        <button class="btn btn-light small" id="backToOrder">주문 화면</button>
+      </div>
+      <div class="admin-hero">
+        <div class="admin-metric"><span>현재 주문</span><strong id="adminRestaurant">-</strong></div>
+        <div class="admin-metric"><span>응답</span><strong id="adminRespond">0명</strong></div>
+        <div class="admin-metric"><span>미응답</span><strong id="adminMissing">0명</strong></div>
+        <div class="admin-metric"><span>예상금액</span><strong id="adminTotal">0원</strong></div>
+      </div>
+      <button class="btn btn-soft btn-wide" id="copySummaryBtn">📋 주문 요약 복사</button>
+    </div>
+
+    <div style="height:10px"></div>
+
+    <details class="admin-block" open>
+      <summary>오늘 주문 설정</summary>
+      <div class="admin-content">
+        <div class="slot-admin-grid">
+          <div class="slot-admin">
+            <h4>주문 1</h4>
+            <div class="inline-grid">
+              <div><label class="label">식당/매장</label><select class="input" id="restaurantSelect1"></select></div>
+              <div><label class="label">마감</label><input class="input" id="cutoffInput1" type="time"></div>
+              <button class="btn btn-primary" data-apply-slot="1">적용</button>
+            </div>
+            <div id="missing1" class="missing"></div>
+          </div>
+          <div class="slot-admin">
+            <h4>주문 2 <span style="font-weight:500;color:var(--muted)">(선택)</span></h4>
+            <div class="inline-grid">
+              <div><label class="label">식당/매장</label><select class="input" id="restaurantSelect2"></select></div>
+              <div><label class="label">마감</label><input class="input" id="cutoffInput2" type="time" value="16:30"></div>
+              <button class="btn btn-primary" data-apply-slot="2">사용</button>
+            </div>
+            <button class="btn btn-light btn-wide" id="disableSlot2Btn" style="margin-top:8px">주문 2 사용 안 함</button>
+            <div id="missing2" class="missing"></div>
+          </div>
+        </div>
+        <div class="danger-zone">
+          <button class="btn btn-danger" id="resetSlot1Btn">주문 1 초기화</button>
+          <button class="btn btn-danger" id="resetSlot2Btn">주문 2 초기화</button>
+        </div>
+      </div>
+    </details>
+
+    <details class="admin-block">
+      <summary>사용자 관리</summary>
+      <div class="admin-content">
+        <button class="btn btn-light btn-wide" id="addMemberBtn">+ 사용자 추가</button>
+        <div id="memberAdminList" class="admin-list" style="margin-top:9px"></div>
+      </div>
+    </details>
+
+    <details class="admin-block">
+      <summary>식당 · 메뉴 관리</summary>
+      <div class="admin-content">
+        <button class="btn btn-light btn-wide" id="addRestaurantBtn">+ 식당/매장 추가</button>
+        <div id="restaurantAdminList" class="admin-list" style="margin-top:9px"></div>
+      </div>
+    </details>
+  </section>
 </div>
 
-<section class="hero">
-  <div><small id="heroSlotLabel">주문 1</small><h2 id="restaurantName">불러오는 중...</h2><p id="restaurantDesc"></p></div>
-  <div class="cutoff"><span>주문 마감</span><strong id="cutoffView">--:--</strong></div>
-</section>
-
-<main class="grid">
-<section class="card">
-  <div class="head"><h3>내 주문</h3><span class="pill" id="myState">이름 선택</span></div>
-  <label class="label">① 내 이름 선택</label>
-  <div id="memberGrid" class="member-grid"><div class="empty">등록된 사용자가 없습니다.</div></div>
-  <div class="switch">
-    <button class="choice active" id="eatBtn">🍽️ 주문할게요</button>
-    <button class="choice" id="skipBtn">🙅 주문 안 해요</button>
-  </div>
-  <div id="menuArea">
-    <label class="label">② 메뉴 선택</label>
-    <div id="menuGrid" class="menu-grid"></div>
-    <button class="btn btn-light btn-wide custom-add" id="addCustomMenuBtn">+ 직접 메뉴 추가</button>
-    <div id="customMenuList" class="custom-list"></div>
-    <label class="label">요청사항 <span style="font-weight:500;color:#98a2b1">(선택)</span></label>
-    <input class="input" id="noteInput" maxlength="100" placeholder="예: 곱빼기, 맵지 않게, 밥 조금">
-  </div>
-  <button class="btn btn-primary btn-wide save-order" id="saveBtn">주문 저장하기</button>
-</section>
-
-<section class="card">
-  <div class="head"><h3>현재 주문 현황</h3><span class="pill" id="respondCount">0명 응답</span></div>
-  <div class="stats"><div class="stat"><strong id="eatCount">0</strong><span>주문</span></div><div class="stat"><strong id="skipCount">0</strong><span>미주문</span></div><div class="stat"><strong id="menuKinds">0</strong><span>메뉴 종류</span></div></div>
-  <div class="chips" id="menuSummary"></div>
-  <div id="orders"></div>
-  <div class="total"><span>예상 주문 금액</span><strong id="totalPrice">0원</strong></div>
-</section>
-</main>
-
-<section class="card admin hidden" id="adminPanel">
-  <div class="head">
-    <div><h3>밥 당번 관리</h3><p style="margin:4px 0 0;color:var(--muted);font-size:13px">주문 설정, 사용자, 식당·메뉴를 바로 관리할 수 있습니다.</p></div>
-    <span class="pill">관리자 설정</span>
-  </div>
-
-  <div class="admin-grid">
-    <div class="slot-admin">
-      <h4>주문 1 설정</h4>
-      <div class="slot-admin-row">
-        <div><label class="label">식당/매장</label><select class="input" id="restaurantSelect1"></select></div>
-        <div><label class="label">마감</label><input class="input" id="cutoffInput1" type="time" value="17:40"></div>
-        <button class="btn btn-primary" data-apply-slot="1">적용</button>
-      </div>
-    </div>
-    <div class="slot-admin">
-      <h4>주문 2 설정</h4>
-      <p style="margin:-3px 0 10px;color:var(--muted);font-size:12px">필요한 날에만 켜서 두 번째 주문을 진행합니다.</p>
-      <div class="slot-admin-row">
-        <div><label class="label">식당/매장</label><select class="input" id="restaurantSelect2"></select></div>
-        <div><label class="label">마감</label><input class="input" id="cutoffInput2" type="time" value="16:30"></div>
-        <button class="btn btn-primary" data-apply-slot="2">주문 2 사용</button>
-      </div>
-      <button class="btn btn-light btn-wide" style="margin-top:8px" id="disableSlot2Btn">주문 2 사용 안 함</button>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+    <div class="modal-actions">
+      <button class="btn btn-light" id="modalCancel">취소</button>
+      <button class="btn btn-primary" id="modalConfirm">확인</button>
     </div>
   </div>
-
-  <div class="danger-zone">
-    <button class="btn btn-danger" id="resetSlot1Btn">🗑️ 주문 1 초기화</button>
-    <button class="btn btn-danger hidden" id="resetSlot2Btn">🗑️ 주문 2 초기화</button>
-  </div>
-
-  <div class="divider"></div>
-  <div class="manage-head"><div><h3>사용자 관리</h3><p>사용자 추가·이름 수정·삭제가 가능합니다. 수정한 이름은 주문자 선택 화면에 바로 반영됩니다.</p></div><button class="btn btn-light" id="addMemberBtn">+ 사용자 추가</button></div>
-  <div id="memberAdminGrid" class="member-admin-grid"></div>
-
-  <div class="divider"></div>
-  <div class="manage-head"><div><h3>식당 및 메뉴 관리</h3><p>식당·커피숍 이름, 설명, 메뉴명과 가격을 관리합니다.</p></div><button class="btn btn-light" id="addRestaurantBtn">+ 매장 추가</button></div>
-  <div id="restaurantEditor"></div>
-</section>
 </div>
+
 <div id="toast" class="toast"></div>
 
 <script type="module">
@@ -125,140 +322,263 @@ const SUPABASE_URL="https://zyuybhszykxuafzriksn.supabase.co";
 const KEY="sb_publishable_3h3_2LRYgdyeXdoDO6XZMA_4jQrQTtV";
 const API=`${SUPABASE_URL}/functions/v1/meal-api`;
 const $=s=>document.querySelector(s);
-const st={restaurants:[],menus:[],members:[],days:[],orders:[],popularity:[],slot:1,member:null,qty:{1:{},2:{}},custom:{1:[],2:[]},eat:{1:true,2:true}};
-let adminOpen=false;
-let editingMemberId=null;
 
-function dateKey(){const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t)?.value;return `${g("year")}-${g("month")}-${g("day")}`}
+const st={
+  restaurants:[],menus:[],members:[],days:[],orders:[],popularity:[],
+  slot:1,member:null,qty:{1:{},2:{}},custom:{1:[],2:[]},note:{1:"",2:""},
+  editing:false
+};
+
+function dateKey(){
+  const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+  const g=t=>p.find(x=>x.type===t)?.value;
+  return `${g("year")}-${g("month")}-${g("day")}`;
+}
+function timeNow(){
+  const p=new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Seoul",hour:"2-digit",minute:"2-digit",hour12:false}).formatToParts(new Date());
+  const g=t=>p.find(x=>x.type===t)?.value;
+  return `${g("hour")}:${g("minute")}`;
+}
 function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function money(n){return Number(n||0).toLocaleString("ko-KR")+"원"}
-function toast(m){const e=$("#toast");e.textContent=m;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",2300)}
-function token(name,slot){const k=`meal-token:${dateKey()}:${slot}:${name}`;let v=localStorage.getItem(k);if(!v){v=crypto.randomUUID();localStorage.setItem(k,v)}return v}
-async function api(body=null){const isGet=!body;const r=await fetch(isGet?API+`?date=${dateKey()}`:API,{method:isGet?"GET":"POST",headers:{apikey:KEY,"Content-Type":"application/json"},body:isGet?undefined:JSON.stringify(body)});const d=await r.json().catch(()=>({}));if(!r.ok){const e=new Error(d.error||"오류");e.status=r.status;throw e}return d}
-const activeR=()=>st.restaurants.filter(x=>x.active!==false), activeM=()=>st.menus.filter(x=>x.active!==false), activeU=()=>st.members.filter(x=>x.active!==false);
+function toast(m){const e=$("#toast");e.textContent=m;e.style.display="block";clearTimeout(window.__tt);window.__tt=setTimeout(()=>e.style.display="none",2200)}
+async function api(body=null){
+  const get=!body;
+  const r=await fetch(get?API+`?date=${dateKey()}`:API,{
+    method:get?"GET":"POST",
+    headers:{apikey:KEY,"Content-Type":"application/json"},
+    body:get?undefined:JSON.stringify(body)
+  });
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok){const e=new Error(d.error||"오류");e.status=r.status;throw e}
+  return d;
+}
+function token(name,slot){
+  const key=`meal-token:${dateKey()}:${slot}:${name}`;
+  let v=localStorage.getItem(key);
+  if(!v){v=crypto.randomUUID();localStorage.setItem(key,v)}
+  return v;
+}
+const activeR=()=>st.restaurants.filter(x=>x.active!==false);
+const activeM=()=>st.menus.filter(x=>x.active!==false);
+const activeU=()=>st.members.filter(x=>x.active!==false);
 const day=s=>st.days.find(x=>Number(x.order_slot)===Number(s))||null;
 const restaurant=s=>st.restaurants.find(x=>x.id===day(s)?.restaurant_id)||null;
 const slotOrders=s=>st.orders.filter(x=>Number(x.order_slot)===Number(s));
 
-function syncExisting(){
-  if(!st.member)return;
-  const o=slotOrders(st.slot).find(x=>x.member_name===st.member);
-  st.qty[st.slot]={};
-  st.custom[st.slot]=[];
-  if(o){
-    st.eat[st.slot]=!!o.will_eat;
-    (o.items||[]).forEach(i=>{
-      if(i.menu_id&&i.quantity>0) st.qty[st.slot][i.menu_id]=i.quantity;
-      if(!i.menu_id&&i.custom_name&&i.quantity>0) st.custom[st.slot].push({id:crypto.randomUUID(),name:i.custom_name,price:Number(i.custom_price||0),quantity:Number(i.quantity||1)});
-    });
-    $("#noteInput").value=o.note||"";
-  }else{
-    $("#noteInput").value="";
-    st.eat[st.slot]=true;
-  }
-  updateEatUI();
+function themeFor(r){
+  const t=`${r?.name||""} ${r?.description||""}`.toLowerCase();
+  if(/카페|커피|라떼|아메리카노|에이드|티/.test(t))return"cafe";
+  if(/홍콩반점|중식|짜장|짬뽕|탕수육|중화/.test(t))return"chinese";
+  if(/김밥|분식|떡볶이|라면|순대/.test(t))return"snack";
+  if(/돈카츠|돈가스|돈까스|우동|카레/.test(t))return"cutlet";
+  if(/순두부|찌개|백반|국밥|한식|제육/.test(t))return"korean";
+  return"default";
 }
-function updateEatUI(){const eat=st.eat[st.slot];$("#eatBtn").classList.toggle("active",eat);$("#skipBtn").classList.toggle("active",!eat);$("#menuArea").classList.toggle("hidden",!eat)}
-
-function restaurantTheme(r){
-  const text=`${r?.name||""} ${r?.description||""}`.toLowerCase();
-  if(/카페|커피|라떼|아메리카노|에이드|티/.test(text)) return "cafe";
-  if(/홍콩반점|중식|짜장|짬뽕|탕수육|중화/.test(text)) return "chinese";
-  if(/김밥|분식|떡볶이|라면|순대/.test(text)) return "snack";
-  if(/돈카츠|돈가스|돈까스|우동|카레/.test(text)) return "cutlet";
-  if(/순두부|찌개|백반|국밥|한식|제육/.test(text)) return "korean";
-  return "default";
-}
-function applyRestaurantTheme(r){
-  const hero=document.querySelector(".hero");
-  if(!hero)return;
-  ["default","cafe","korean","chinese","snack","cutlet"].forEach(t=>hero.classList.remove("theme-"+t));
-  hero.classList.add("theme-"+restaurantTheme(r));
-}
-function applySlotTheme(el,r){
+function setTheme(el,prefix,r){
   if(!el)return;
-  ["default","cafe","korean","chinese","snack","cutlet"].forEach(t=>el.classList.remove("slot-"+t));
-  el.classList.add("slot-"+restaurantTheme(r));
+  ["default","cafe","korean","chinese","snack","cutlet"].forEach(x=>el.classList.remove(prefix+x));
+  el.classList.add(prefix+themeFor(r));
+}
+function cutoffPassed(s){
+  const d=day(s);
+  if(!d?.cutoff_time)return false;
+  return timeNow()>=d.cutoff_time.slice(0,5);
+}
+function countdownText(s){
+  const d=day(s); if(!d?.cutoff_time)return"마감시간 미설정";
+  const now=timeNow(),cut=d.cutoff_time.slice(0,5);
+  if(now>=cut)return"주문 마감";
+  const [h1,m1]=now.split(":").map(Number),[h2,m2]=cut.split(":").map(Number);
+  const diff=h2*60+m2-(h1*60+m1);
+  if(diff<=60)return `${diff}분 남음`;
+  return `${Math.floor(diff/60)}시간 ${diff%60}분 남음`;
+}
+function currentOrder(){
+  if(!st.member)return null;
+  return slotOrders(st.slot).find(o=>o.member_name===st.member)||null;
+}
+function itemName(i){
+  return i.menu_id?(st.menus.find(m=>m.id===i.menu_id)?.name||"메뉴"):(i.custom_name||"직접 메뉴");
+}
+function itemPrice(i){
+  return i.menu_id?(st.menus.find(m=>m.id===i.menu_id)?.price||0):Number(i.custom_price||0);
 }
 
-function render(renderAdminPanel=true){
+function renderHeader(){
   [1,2].forEach(s=>{
-    const r=restaurant(s),d=day(s),el=document.querySelector(`[data-slot="${s}"]`);
-    $("#slotName"+s).textContent=r?.name||"미설정";
-    $("#slotTime"+s).textContent=(d?.cutoff_time?.slice(0,5)||"--:--")+" 마감";
-    el?.classList.toggle("active",st.slot===s);
-    applySlotTheme(el,r);
+    const r=restaurant(s),d=day(s),tab=document.querySelector(`[data-slot="${s}"]`);
+    $("#tabName"+s).textContent=r?.name||("주문 "+s);
+    $("#tabTime"+s).textContent=(d?.cutoff_time?.slice(0,5)||"--:--")+" 마감";
+    tab?.classList.toggle("active",st.slot===s);
+    setTheme(tab,"theme-",r);
   });
-  const hasSecondOrder=!!day(2);
-  $("#slotBar").classList.toggle("hidden",!hasSecondOrder);
-  $("#slot2Button").classList.toggle("hidden",!hasSecondOrder);
-  $("#resetSlot2Btn")?.classList.toggle("hidden",!hasSecondOrder);
-  if(st.slot===2 && !hasSecondOrder) st.slot=1;
-  const r=restaurant(st.slot),d=day(st.slot);$("#heroSlotLabel").textContent="주문 "+st.slot;$("#restaurantName").textContent=r?.name||"매장 미지정";$("#restaurantDesc").textContent=r?.description||"밥 당번이 이 주문의 매장을 지정해 주세요.";$("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";applyRestaurantTheme(r);
+  const has2=!!day(2);
+  $("#orderTabs").classList.toggle("hidden",!has2);
+  if(st.slot===2&&!has2)st.slot=1;
 
-  const ordered=new Set(slotOrders(st.slot).map(o=>o.member_name));
-  const availableMembers=activeU().filter(u=>!ordered.has(u.name));
-  $("#memberGrid").innerHTML=availableMembers.length
-    ? availableMembers.map(u=>`<button class="member ${st.member===u.name?"active":""}" data-member="${esc(u.name)}">${esc(u.name)}</button>`).join("")
-    : '<div class="empty">모두 응답했습니다.</div>';
+  const r=restaurant(st.slot),d=day(st.slot),hero=document.querySelector(".hero");
+  setTheme(hero,"theme-",r);
+  $("#heroLabel").textContent=has2?("현재 선택 · "+(st.slot===1?"주문 1":"주문 2")):"오늘의 주문";
+  $("#restaurantName").textContent=r?.name||"매장 미지정";
+  $("#restaurantDesc").textContent=r?.description||"밥 당번이 매장을 지정해 주세요.";
+  $("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";
+  $("#countdown").textContent=countdownText(st.slot);
+}
 
-  const popularityMap=new Map((st.popularity||[]).map(p=>[p.menu_id,Number(p.total_quantity||0)]));
+function renderMemberPicker(){
+  const responded=new Set(slotOrders(st.slot).map(o=>o.member_name));
+  const available=activeU().filter(u=>!responded.has(u.name));
+  $("#memberGrid").innerHTML=available.length
+    ? available.map(u=>`<button class="member-btn ${st.member===u.name?"active":""}" data-member="${esc(u.name)}">${esc(u.name)}</button>`).join("")
+    : '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:18px">모두 응답했습니다.</div>';
+}
+
+function renderMenu(){
+  const r=restaurant(st.slot);
+  const pop=new Map((st.popularity||[]).map(p=>[p.menu_id,Number(p.total_quantity||0)]));
   const menus=r?activeM().filter(m=>m.restaurant_id===r.id).sort((a,b)=>{
-    const diff=(popularityMap.get(b.id)||0)-(popularityMap.get(a.id)||0);
-    return diff!==0?diff:(Number(a.sort_order||0)-Number(b.sort_order||0));
+    const d=(pop.get(b.id)||0)-(pop.get(a.id)||0);
+    return d!==0?d:Number(a.sort_order||0)-Number(b.sort_order||0);
   }):[];
   $("#menuGrid").innerHTML=menus.length?menus.map(m=>{
     const q=Number(st.qty[st.slot][m.id]||0);
-    return `<div class="menu ${q>0?"active":""}" data-menu="${m.id}">
-      <b>${esc(m.name)}${(popularityMap.get(m.id)||0)>0?'<span class="popular-badge">자주 주문</span>':""}</b><span class="price">${money(m.price)}</span>
+    return `<div class="menu-card ${q>0?"selected":""}" data-menu="${m.id}">
+      <div class="menu-head"><div><div class="menu-name">${esc(m.name)}${(pop.get(m.id)||0)>0?'<span class="popular">자주 주문</span>':""}</div><div class="menu-price">${money(m.price)}</div></div></div>
       <div class="qty-row">
-        <button class="qty-btn" data-qty-minus="${m.id}" aria-label="${esc(m.name)} 수량 줄이기">−</button>
+        <button class="qty-btn" data-minus="${m.id}">−</button>
         <span class="qty">${q}</span>
-        <button class="qty-btn plus" data-qty-plus="${m.id}" aria-label="${esc(m.name)} 수량 늘리기">+</button>
+        <button class="qty-btn plus" data-plus="${m.id}">+</button>
       </div>
     </div>`;
-  }).join(""):'<div class="empty">메뉴가 없습니다.</div>';
-  $("#customMenuList").innerHTML=(st.custom[st.slot]||[]).map(x=>`<div class="custom-item">
-    <div><div class="custom-item-name">${esc(x.name)}</div><div class="custom-item-price">${money(x.price)}</div></div>
-    <div class="qty-row" style="margin:0;justify-content:center">
-      <button class="qty-btn" data-custom-minus="${x.id}">−</button><span class="qty">${x.quantity}</span><button class="qty-btn plus" data-custom-plus="${x.id}">+</button>
-    </div>
-    <button class="btn btn-danger mini" data-custom-del="${x.id}">삭제</button>
+  }).join(""):'<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:18px">등록된 메뉴가 없습니다.</div>';
+
+  $("#customMenuList").innerHTML=(st.custom[st.slot]||[]).map(x=>`<div class="custom-row">
+    <div><div class="custom-name">${esc(x.name)}</div><div class="custom-meta">${money(x.price)}</div></div>
+    <div class="qty-row" style="margin:0"><button class="qty-btn" data-cminus="${x.id}">−</button><span class="qty">${x.quantity}</span><button class="qty-btn plus" data-cplus="${x.id}">+</button></div>
+    <button class="btn btn-danger small" data-cdel="${x.id}">삭제</button>
   </div>`).join("");
-  $("#myState").textContent=st.member?st.member:"이름 선택";
-  updateEatUI();renderOrders();
-  if(renderAdminPanel) renderAdmin();
 }
 
-function renderOrders(){
-  const list=slotOrders(st.slot),mm=new Map(st.menus.map(m=>[m.id,m])),e=list.filter(o=>o.will_eat),s=list.filter(o=>!o.will_eat),cnt={};
-  e.forEach(o=>(o.items||[]).forEach(i=>{const n=i.menu_id?(mm.get(i.menu_id)?.name||"메뉴"):(i.custom_name||"직접 메뉴");cnt[n]=(cnt[n]||0)+Number(i.quantity||0)}));
-  $("#respondCount").textContent=list.length+"명 응답";$("#eatCount").textContent=e.length;$("#skipCount").textContent=s.length;$("#menuKinds").textContent=Object.keys(cnt).length;
-  $("#menuSummary").innerHTML=Object.entries(cnt).map(([n,c])=>`<span class="chip">${esc(n)} × ${c}</span>`).join("");
-  $("#totalPrice").textContent=money(e.reduce((sum,o)=>sum+(o.items||[]).reduce((sub,i)=>sub+((i.menu_id?(mm.get(i.menu_id)?.price||0):Number(i.custom_price||0))*Number(i.quantity||0)),0),0));
+function renderOrderForm(){
+  const existing=currentOrder();
+  $("#selectedNameBadge").textContent=st.member||"이름 선택";
+
+  if(existing){
+    const total=(existing.items||[]).reduce((s,i)=>s+itemPrice(i)*Number(i.quantity||0),0);
+    $("#orderForm").classList.add("hidden");
+    $("#orderComplete").classList.remove("hidden");
+    $("#orderComplete").innerHTML=`
+      <h3>✓ ${esc(existing.member_name)}님 주문 완료</h3>
+      <p>주문 내용은 아래에서 확인하거나 다시 수정할 수 있습니다.</p>
+      <div class="complete-items">
+        ${existing.will_eat?(existing.items||[]).map(i=>`<div class="complete-item"><span>${esc(itemName(i))} ×${i.quantity}</span><strong>${money(itemPrice(i)*i.quantity)}</strong></div>`).join(""):'<div class="complete-item"><span>주문 안 함</span><strong>-</strong></div>'}
+      </div>
+      <div class="complete-item"><span>합계</span><strong>${money(total)}</strong></div>
+      <div class="complete-actions" style="margin-top:12px"><button class="btn btn-light" id="editMyOrder">내 주문 수정</button><button class="btn btn-danger" id="cancelMyOrder">주문 취소</button></div>`;
+    $("#editMyOrder").onclick=()=>loadExistingForEdit(existing);
+    $("#cancelMyOrder").onclick=()=>cancelOrder(existing.member_name);
+  }else{
+    $("#orderComplete").classList.add("hidden");
+    $("#orderForm").classList.remove("hidden");
+    renderMemberPicker();
+    $("#menuSection").classList.toggle("hidden",!st.member);
+    if(st.member){
+      renderMenu();
+      $("#noteInput").value=st.note[st.slot]||"";
+      $("#saveBtn").disabled=cutoffPassed(st.slot);
+      $("#saveBtn").textContent=cutoffPassed(st.slot)?"주문 마감":"주문 저장하기";
+    }
+  }
+}
+
+function loadExistingForEdit(o){
+  st.qty[st.slot]={};st.custom[st.slot]=[];st.note[st.slot]=o.note||"";
+  (o.items||[]).forEach(i=>{
+    if(i.menu_id)st.qty[st.slot][i.menu_id]=Number(i.quantity||1);
+    else st.custom[st.slot].push({id:crypto.randomUUID(),name:i.custom_name||"직접 메뉴",price:Number(i.custom_price||0),quantity:Number(i.quantity||1)});
+  });
+  $("#orderComplete").classList.add("hidden");
+  $("#orderForm").classList.remove("hidden");
+  $("#menuSection").classList.remove("hidden");
+  renderMemberPicker();renderMenu();
+  $("#noteInput").value=st.note[st.slot];
+}
+
+function renderSummary(){
+  const list=slotOrders(st.slot),e=list.filter(o=>o.will_eat),s=list.filter(o=>!o.will_eat),count={};
+  e.forEach(o=>(o.items||[]).forEach(i=>{const n=itemName(i);count[n]=(count[n]||0)+Number(i.quantity||0)}));
+  $("#respondCount").textContent=list.length+"명 응답";
+  $("#eatCount").textContent=e.length;$("#skipCount").textContent=s.length;$("#menuKinds").textContent=Object.keys(count).length;
+  $("#menuSummary").innerHTML=Object.entries(count).map(([n,c])=>`<span class="chip">${esc(n)} × ${c}</span>`).join("");
+  const total=e.reduce((sum,o)=>sum+(o.items||[]).reduce((ss,i)=>ss+itemPrice(i)*Number(i.quantity||0),0),0);
+  $("#totalPrice").textContent=money(total);
   $("#orders").innerHTML=list.length?list.map(o=>{
-    const dishes=(o.items||[]).map(i=>{const name=i.menu_id?(mm.get(i.menu_id)?.name||"메뉴"):(i.custom_name||"직접 메뉴");return `${esc(name)} ×${Number(i.quantity||0)}`}).join(", ");
-    return `<div class="order"><div class="avatar">${esc(o.member_name.slice(0,1))}</div><div class="person">${esc(o.member_name)}</div><div>${o.will_eat?`<div class="dish">${dishes||"메뉴"}</div>${o.note?`<div class="note">${esc(o.note)}</div>`:""}`:'<div class="dish" style="color:#c24854">주문 안 함</div>'}</div><div class="order-actions"><span class="status ${o.will_eat?"eat":"skip"}">${o.will_eat?"주문":"미주문"}</span><button class="cancel-order" data-cancel-member="${esc(o.member_name)}">취소</button></div></div>`;
-  }).join(""):'<div class="empty">아직 주문이 없습니다.</div>';
+    const dishes=o.will_eat?(o.items||[]).map(i=>`${esc(itemName(i))} ×${i.quantity}`).join(", "):"주문 안 함";
+    return `<div class="person-row">
+      <div class="avatar">${esc(o.member_name.slice(0,1))}</div>
+      <div class="person-name">${esc(o.member_name)}</div>
+      <div><div class="person-order">${dishes}</div>${o.note?`<div class="person-note">${esc(o.note)}</div>`:""}</div>
+      <button class="cancel-btn" data-cancel="${esc(o.member_name)}">취소</button>
+    </div>`;
+  }).join(""):'<div style="text-align:center;color:var(--muted);padding:20px">아직 주문이 없습니다.</div>';
 }
 
+function missingNames(s){
+  const responded=new Set(slotOrders(s).map(o=>o.member_name));
+  return activeU().filter(u=>!responded.has(u.name)).map(u=>u.name);
+}
 function renderAdmin(){
-  const opts=activeR().map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join("");
-  [1,2].forEach(s=>{const sel=$("#restaurantSelect"+s);sel.innerHTML=opts;const d=day(s);if(d?.restaurant_id)sel.value=d.restaurant_id;if(d?.cutoff_time)$("#cutoffInput"+s).value=d.cutoff_time.slice(0,5)});
-  $("#memberAdminGrid").innerHTML=activeU().map(u=>editingMemberId===u.id
-    ? `<div class="member-admin"><input data-uname="${u.id}" value="${esc(u.name)}" maxlength="30" autofocus><div class="member-edit-actions"><button class="btn btn-primary mini" data-usave="${u.id}">저장</button><button class="btn btn-light mini" data-ucancel="${u.id}">취소</button></div><button class="btn btn-danger mini" data-udel="${u.id}">삭제</button></div>`
-    : `<div class="member-admin"><div class="member-admin-name">${esc(u.name)}</div><button class="btn btn-light mini" data-uedit="${u.id}">수정</button><button class="btn btn-danger mini" data-udel="${u.id}">삭제</button></div>`
-  ).join("")||'<div class="empty">등록된 사용자가 없습니다.</div>';
-  $("#restaurantEditor").innerHTML=activeR().map(r=>{const ms=activeM().filter(m=>m.restaurant_id===r.id);return `<div class="restaurant-block"><div class="restaurant-row"><input class="input" data-rname="${r.id}" value="${esc(r.name)}"><input class="input" data-rdesc="${r.id}" value="${esc(r.description||"")}" placeholder="설명"><button class="btn btn-light mini" data-rsave="${r.id}">저장</button><button class="btn btn-danger mini" data-rdel="${r.id}">삭제</button></div>${ms.map(m=>`<div class="menu-edit"><input class="input" data-mname="${m.id}" value="${esc(m.name)}"><input class="input" data-mprice="${m.id}" type="number" value="${m.price}"><button class="btn btn-light mini" data-msave="${m.id}">저장</button><button class="btn btn-danger mini" data-mdel="${m.id}">삭제</button></div>`).join("")}<button class="btn btn-light mini addline" data-madd="${r.id}">+ 메뉴 추가</button></div>`}).join("");
+  const r=restaurant(st.slot),list=slotOrders(st.slot);
+  const total=list.filter(o=>o.will_eat).reduce((sum,o)=>sum+(o.items||[]).reduce((ss,i)=>ss+itemPrice(i)*Number(i.quantity||0),0),0);
+  $("#adminRestaurant").textContent=r?.name||"-";
+  $("#adminRespond").textContent=list.length+"명";
+  $("#adminMissing").textContent=missingNames(st.slot).length+"명";
+  $("#adminTotal").textContent=money(total);
+
+  const opts=activeR().map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join("");
+  [1,2].forEach(s=>{
+    $("#restaurantSelect"+s).innerHTML=opts;
+    const d=day(s);if(d?.restaurant_id)$("#restaurantSelect"+s).value=d.restaurant_id;
+    $("#cutoffInput"+s).value=d?.cutoff_time?.slice(0,5)||(s===1?"17:40":"16:30");
+    const miss=missingNames(s);
+    $("#missing"+s).textContent=d?(miss.length?("미응답: "+miss.join(", ")):"모두 응답 완료"):"사용 안 함";
+  });
+  $("#resetSlot2Btn").classList.toggle("hidden",!day(2));
+
+  $("#memberAdminList").innerHTML=activeU().map(u=>`<div class="admin-row">
+    <div class="admin-name">${esc(u.name)}</div>
+    <button class="btn btn-light small" data-edit-member="${u.id}">수정</button>
+    <button class="btn btn-danger small" data-del-member="${u.id}">삭제</button>
+  </div>`).join("")||'<div style="color:var(--muted);padding:10px">등록된 사용자가 없습니다.</div>';
+
+  $("#restaurantAdminList").innerHTML=activeR().map(r=>{
+    const menus=activeM().filter(m=>m.restaurant_id===r.id);
+    return `<div style="border:1px solid var(--line);border-radius:13px;padding:10px;background:#fbfcfd">
+      <div class="admin-row two">
+        <div class="admin-name">${esc(r.name)}</div>
+        <div style="color:var(--muted);font-size:12px">${esc(r.description||"")}</div>
+        <button class="btn btn-light small" data-edit-restaurant="${r.id}">수정</button>
+        <button class="btn btn-danger small" data-del-restaurant="${r.id}">삭제</button>
+      </div>
+      ${menus.map(m=>`<div class="admin-row menu-admin"><div class="admin-name">${esc(m.name)}</div><div>${money(m.price)}</div><button class="btn btn-light small" data-edit-menu="${m.id}">수정</button><button class="btn btn-danger small" data-del-menu="${m.id}">삭제</button></div>`).join("")}
+      <button class="btn btn-light small" data-add-menu="${r.id}" style="margin-top:8px">+ 메뉴 추가</button>
+    </div>`;
+  }).join("");
 }
 
-async function refresh(silent=false,forceAdminRender=false){
+function render(){
+  renderHeader();
+  renderOrderForm();
+  renderSummary();
+  renderAdmin();
+}
+
+async function refresh(silent=false){
   try{
     const d=await api();
     Object.assign(st,{restaurants:d.restaurants||[],menus:d.menus||[],members:d.members||[],days:d.days||[],orders:d.orders||[],popularity:d.popularity||[]});
-    if(st.member&&!activeU().some(u=>u.name===st.member))st.member=null;
-    const adminVisible=!$("#adminPanel").classList.contains("hidden");
-    render(forceAdminRender||!adminVisible);
+    render();
     $("#banner").classList.add("hidden");
   }catch(e){
     $("#banner").textContent="데이터 연결 오류: "+e.message;
@@ -266,144 +586,130 @@ async function refresh(silent=false,forceAdminRender=false){
     if(!silent)toast("데이터 연결을 확인해 주세요.");
   }
 }
-async function admin(body,msg){
-  try{
-    await api(body);
-    toast(msg);
-    await refresh(true,true);
-    return true;
-  }catch(e){
-    toast(e.message==="member_name_exists"?"이미 등록된 이름입니다.":"처리 실패: "+e.message);
-    return false;
-  }
+
+function openModal({title,fields=[],confirmText="확인"}){
+  return new Promise(resolve=>{
+    $("#modalTitle").textContent=title;
+    $("#modalBody").innerHTML=fields.map(f=>`<label class="label">${esc(f.label)}</label><input class="input" id="modal_${f.key}" type="${f.type||"text"}" value="${esc(f.value??"")}" placeholder="${esc(f.placeholder||"")}">`).join("");
+    $("#modalConfirm").textContent=confirmText;
+    $("#modalBackdrop").classList.add("show");
+    const close=v=>{$("#modalBackdrop").classList.remove("show");$("#modalConfirm").onclick=null;$("#modalCancel").onclick=null;resolve(v)};
+    $("#modalCancel").onclick=()=>close(null);
+    $("#modalConfirm").onclick=()=>{
+      const out={};fields.forEach(f=>out[f.key]=$("#modal_"+f.key).value);
+      close(out);
+    };
+  });
+}
+async function confirmModal(title,text,confirmText="확인"){
+  return new Promise(resolve=>{
+    $("#modalTitle").textContent=title;
+    $("#modalBody").innerHTML=`<div style="color:var(--muted);line-height:1.6">${esc(text)}</div>`;
+    $("#modalConfirm").textContent=confirmText;
+    $("#modalBackdrop").classList.add("show");
+    const close=v=>{$("#modalBackdrop").classList.remove("show");$("#modalConfirm").onclick=null;$("#modalCancel").onclick=null;resolve(v)};
+    $("#modalCancel").onclick=()=>close(false);$("#modalConfirm").onclick=()=>close(true);
+  });
 }
 
-$("#slotBar").onclick=e=>{const b=e.target.closest("[data-slot]");if(!b)return;st.slot=Number(b.dataset.slot);syncExisting();render()};
-$("#memberGrid").onclick=e=>{const b=e.target.closest("[data-member]");if(!b)return;st.member=b.dataset.member;localStorage.setItem("meal-last-member",st.member);syncExisting();render()};
-$("#menuGrid").onclick=e=>{
-  const plus=e.target.closest("[data-qty-plus]");
-  const minus=e.target.closest("[data-qty-minus]");
-  if(plus){
-    const id=plus.dataset.qtyPlus;
-    st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);
-    render(false);
-    return;
-  }
-  if(minus){
-    const id=minus.dataset.qtyMinus;
-    const next=Math.max(0,Number(st.qty[st.slot][id]||0)-1);
-    if(next===0)delete st.qty[st.slot][id];else st.qty[st.slot][id]=next;
-    render(false);
-    return;
-  }
+async function cancelOrder(name){
+  if(!await confirmModal("주문 취소",name+"님의 현재 주문을 취소할까요?","취소하기"))return;
+  await api({action:"cancel_order",date:dateKey(),order_slot:st.slot,member_name:name});
+  if(st.member===name){st.member=null;st.qty[st.slot]={};st.custom[st.slot]=[];st.note[st.slot]=""}
+  toast("주문을 취소했습니다.");
+  await refresh(true);
+}
 
-  const menu=e.target.closest(".menu[data-menu]");
-  if(menu){
-    const id=menu.dataset.menu;
-    st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);
-    render(false);
-  }
+$("#orderTabs").onclick=e=>{
+  const b=e.target.closest("[data-slot]");if(!b)return;
+  st.slot=Number(b.dataset.slot);st.member=null;st.qty[st.slot]={};st.custom[st.slot]=[];st.note[st.slot]="";render();
 };
-$("#addCustomMenuBtn").onclick=()=>{
-  const name=prompt("직접 주문할 메뉴 이름을 입력하세요.");
-  if(!name?.trim())return;
-  const priceText=prompt("가격을 입력하세요. 모르면 0으로 두셔도 됩니다.","0");
-  if(priceText===null)return;
-  const price=Math.max(0,Number(priceText||0));
-  st.custom[st.slot].push({id:crypto.randomUUID(),name:name.trim().slice(0,60),price,quantity:1});
-  render(false);
+$("#memberGrid").onclick=e=>{
+  const b=e.target.closest("[data-member]");if(!b)return;
+  st.member=b.dataset.member;localStorage.setItem("meal-last-member",st.member);renderOrderForm();
+};
+$("#menuGrid").onclick=e=>{
+  const plus=e.target.closest("[data-plus]"),minus=e.target.closest("[data-minus]");
+  if(plus){const id=plus.dataset.plus;st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);renderMenu();return}
+  if(minus){const id=minus.dataset.minus,n=Math.max(0,Number(st.qty[st.slot][id]||0)-1);if(n)st.qty[st.slot][id]=n;else delete st.qty[st.slot][id];renderMenu();return}
+  const card=e.target.closest("[data-menu]");if(card){const id=card.dataset.menu;st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);renderMenu()}
 };
 $("#customMenuList").onclick=e=>{
-  const plus=e.target.closest("[data-custom-plus]");
-  const minus=e.target.closest("[data-custom-minus]");
-  const del=e.target.closest("[data-custom-del]");
-  if(plus){const x=st.custom[st.slot].find(i=>i.id===plus.dataset.customPlus);if(x)x.quantity=Math.min(99,x.quantity+1);render(false);return}
-  if(minus){const x=st.custom[st.slot].find(i=>i.id===minus.dataset.customMinus);if(x)x.quantity=Math.max(1,x.quantity-1);render(false);return}
-  if(del){st.custom[st.slot]=st.custom[st.slot].filter(i=>i.id!==del.dataset.customDel);render(false)}
+  const p=e.target.closest("[data-cplus]"),m=e.target.closest("[data-cminus]"),d=e.target.closest("[data-cdel]");
+  if(p){const x=st.custom[st.slot].find(i=>i.id===p.dataset.cplus);if(x)x.quantity=Math.min(99,x.quantity+1);renderMenu()}
+  if(m){const x=st.custom[st.slot].find(i=>i.id===m.dataset.cminus);if(x)x.quantity=Math.max(1,x.quantity-1);renderMenu()}
+  if(d){st.custom[st.slot]=st.custom[st.slot].filter(i=>i.id!==d.dataset.cdel);renderMenu()}
 };
-$("#eatBtn").onclick=()=>{st.eat[st.slot]=true;updateEatUI()};
-$("#skipBtn").onclick=()=>{st.eat[st.slot]=false;updateEatUI()};
+$("#addCustomMenuBtn").onclick=async()=>{
+  const v=await openModal({title:"직접 메뉴 추가",fields:[{key:"name",label:"메뉴 이름"},{key:"price",label:"가격 (모르면 0)",type:"number",value:"0"}],confirmText:"추가"});
+  if(!v?.name.trim())return;
+  st.custom[st.slot].push({id:crypto.randomUUID(),name:v.name.trim().slice(0,60),price:Math.max(0,Number(v.price||0)),quantity:1});
+  renderMenu();
+};
 $("#saveBtn").onclick=async()=>{
-  if(!st.member)return toast("먼저 내 이름을 선택해 주세요.");
-  if(!day(st.slot))return toast("이 주문은 아직 설정되지 않았습니다.");
-  const regularItems=Object.entries(st.qty[st.slot]).filter(([,q])=>Number(q)>0).map(([menu_id,quantity])=>({menu_id,quantity:Number(quantity)}));
-  const customItems=(st.custom[st.slot]||[]).filter(x=>x.name&&x.quantity>0).map(x=>({custom_name:x.name,custom_price:Number(x.price||0),quantity:Number(x.quantity)}));
-  const items=[...regularItems,...customItems];
-  if(st.eat[st.slot]&&items.length===0)return toast("메뉴 수량을 1개 이상 선택해 주세요.");
+  if(!st.member)return toast("이름을 먼저 선택해 주세요.");
+  if(cutoffPassed(st.slot))return toast("주문이 마감되었습니다.");
+  const regular=Object.entries(st.qty[st.slot]).filter(([,q])=>Number(q)>0).map(([menu_id,quantity])=>({menu_id,quantity:Number(quantity)}));
+  const custom=(st.custom[st.slot]||[]).map(x=>({custom_name:x.name,custom_price:Number(x.price||0),quantity:Number(x.quantity||1)}));
+  const items=[...regular,...custom];
+  if(items.length===0)return toast("메뉴를 1개 이상 선택해 주세요.");
+  st.note[st.slot]=$("#noteInput").value.trim();
   try{
-    await api({action:"submit_order",date:dateKey(),order_slot:st.slot,name:st.member,will_eat:st.eat[st.slot],items:st.eat[st.slot]?items:[],note:$("#noteInput").value.trim(),token:token(st.member,st.slot)});
-    toast("주문 "+st.slot+"이 저장되었습니다.");
-    st.member=null;
-    st.qty[st.slot]={};
-    st.custom[st.slot]=[];
-    $("#noteInput").value="";
+    await api({action:"submit_order",date:dateKey(),order_slot:st.slot,name:st.member,will_eat:true,items,note:st.note[st.slot],token:token(st.member,st.slot)});
+    toast("주문이 저장되었습니다.");
     await refresh(true);
-  }catch(e){toast(e.status===409?"같은 이름의 주문이 다른 기기에서 이미 등록되었습니다.":"저장 실패: "+e.message)}
+  }catch(e){toast(e.status===409?"같은 이름으로 이미 주문되어 있습니다.":"저장 실패: "+e.message)}
+};
+$("#orders").onclick=e=>{const b=e.target.closest("[data-cancel]");if(b)cancelOrder(b.dataset.cancel)};
+
+$("#adminToggle").onclick=()=>{$("#userView").classList.add("hidden");$("#adminPanel").classList.remove("hidden");renderAdmin()};
+$("#backToOrder").onclick=()=>{$("#adminPanel").classList.add("hidden");$("#userView").classList.remove("hidden");render()};
+$("#copySummaryBtn").onclick=async()=>{
+  const r=restaurant(st.slot),list=slotOrders(st.slot),counts={};
+  list.filter(o=>o.will_eat).forEach(o=>(o.items||[]).forEach(i=>{const n=itemName(i);counts[n]=(counts[n]||0)+Number(i.quantity||0)}));
+  const lines=[`[${r?.name||"오늘 주문"}]`,...Object.entries(counts).map(([n,c])=>`- ${n} × ${c}`),"",...list.map(o=>`${o.member_name}: ${o.will_eat?(o.items||[]).map(i=>itemName(i)+" ×"+i.quantity).join(", "):"주문 안 함"}`)];
+  try{await navigator.clipboard.writeText(lines.join("\n"));toast("주문 요약을 복사했습니다.")}catch{toast("복사하지 못했습니다.")}
 };
 
-$("#orders").onclick=async e=>{
-  const btn=e.target.closest("[data-cancel-member]");
-  if(!btn)return;
-  const name=btn.dataset.cancelMember;
-  if(!confirm(name+"님의 현재 주문을 취소할까요?"))return;
-  try{
-    await api({action:"cancel_order",date:dateKey(),order_slot:st.slot,member_name:name});
-    if(st.member===name){
-      st.member=null;
-      st.qty[st.slot]={};
-      st.custom[st.slot]=[];
-      $("#noteInput").value="";
-    }
-    toast(name+"님의 주문을 취소했습니다.");
-    await refresh(true);
-  }catch(err){
-    toast("취소 실패: "+err.message);
-  }
-};
-
-$("#adminToggle").onclick=()=>{
-  const panel=$("#adminPanel");
-  const willOpen=panel.classList.contains("hidden");
-  panel.classList.toggle("hidden");
-  if(willOpen) renderAdmin();
-};
-document.querySelectorAll("[data-apply-slot]").forEach(b=>b.onclick=()=>{const s=Number(b.dataset.applySlot);admin({action:"admin_set_day",date:dateKey(),order_slot:s,restaurant_id:$("#restaurantSelect"+s).value,cutoff_time:$("#cutoffInput"+s).value||"17:40"},s===2?"주문 2를 사용하도록 설정했습니다.":"주문 1 설정을 적용했습니다.")});
-$("#disableSlot2Btn").onclick=async()=>{if(!day(2))return toast("현재 주문 2는 사용하지 않고 있습니다.");if(!confirm("주문 2를 사용하지 않도록 할까요? 오늘의 주문 2 응답도 함께 삭제됩니다."))return;if(await admin({action:"admin_disable_slot",date:dateKey(),order_slot:2},"주문 2를 숨겼습니다.")){st.slot=1;st.qty[2]={};st.custom[2]=[]}};
-$("#resetSlot1Btn").onclick=async()=>{if(!confirm("오늘 주문 1의 응답만 초기화할까요? 이 작업은 되돌릴 수 없습니다."))return;if(await admin({action:"admin_reset_slot_orders",date:dateKey(),order_slot:1},"주문 1을 초기화했습니다.")){st.qty[1]={};st.custom[1]=[];if(st.slot===1)$("#noteInput").value=""}};
-$("#resetSlot2Btn").onclick=async()=>{if(!confirm("오늘 주문 2의 응답만 초기화할까요? 이 작업은 되돌릴 수 없습니다."))return;if(await admin({action:"admin_reset_slot_orders",date:dateKey(),order_slot:2},"주문 2를 초기화했습니다.")){st.qty[2]={};st.custom[2]=[];if(st.slot===2)$("#noteInput").value=""}};
-$("#addMemberBtn").onclick=async()=>{const n=prompt("추가할 사용자 이름을 입력하세요.");if(n)await admin({action:"admin_add_member",name:n},"사용자를 추가했습니다.")};
-$("#addRestaurantBtn").onclick=async()=>{const n=prompt("추가할 식당/커피숍 이름을 입력하세요.");if(!n)return;const d=prompt("설명을 입력하세요.")||"";await admin({action:"admin_add_restaurant",name:n,description:d},"매장을 추가했습니다.")};
-
-$("#memberAdminGrid").onclick=async e=>{
-  const t=e.target;
-  if(t.dataset.uedit){editingMemberId=t.dataset.uedit;renderAdmin();const input=document.querySelector(`[data-uname="${editingMemberId}"]`);input?.focus();input?.select();return}
-  if(t.dataset.ucancel){editingMemberId=null;renderAdmin();return}
-  if(t.dataset.usave){
-    const id=t.dataset.usave,n=document.querySelector(`[data-uname="${id}"]`)?.value.trim();
-    if(!n)return toast("사용자 이름을 입력해 주세요.");
-    const ok=await admin({action:"admin_update_member",id,name:n},"사용자 이름을 수정했습니다.");
-    if(ok)editingMemberId=null;
-    return;
-  }
-  if(t.dataset.udel&&confirm("이 사용자를 목록에서 삭제할까요?")){
-    const ok=await admin({action:"admin_delete_member",id:t.dataset.udel},"사용자를 삭제했습니다.");
-    if(ok&&editingMemberId===t.dataset.udel)editingMemberId=null;
-  }
-};
-$("#restaurantEditor").onclick=async e=>{const t=e.target;if(t.dataset.rsave){const id=t.dataset.rsave;await admin({action:"admin_update_restaurant",id,name:document.querySelector(`[data-rname="${id}"]`).value.trim(),description:document.querySelector(`[data-rdesc="${id}"]`).value.trim()},"매장 정보를 저장했습니다.")}if(t.dataset.rdel&&confirm("이 매장을 삭제할까요?"))await admin({action:"admin_delete_restaurant",id:t.dataset.rdel},"매장을 삭제했습니다.");if(t.dataset.msave){const id=t.dataset.msave;await admin({action:"admin_update_menu",id,name:document.querySelector(`[data-mname="${id}"]`).value.trim(),price:Number(document.querySelector(`[data-mprice="${id}"]`).value||0)},"메뉴를 저장했습니다.")}if(t.dataset.mdel&&confirm("이 메뉴를 삭제할까요?"))await admin({action:"admin_delete_menu",id:t.dataset.mdel},"메뉴를 삭제했습니다.");if(t.dataset.madd){const n=prompt("메뉴 이름을 입력하세요.");if(!n)return;const p=Number(prompt("가격을 입력하세요.","4500")||0);await admin({action:"admin_add_menu",restaurant_id:t.dataset.madd,name:n,price:p},"메뉴를 추가했습니다.")}};
-document.addEventListener("keydown",e=>{
-  if(e.key!=="Backspace") return;
-  const tag=document.activeElement?.tagName;
-  const editable=tag==="INPUT"||tag==="TEXTAREA"||document.activeElement?.isContentEditable;
-  const adminVisible=!$("#adminPanel").classList.contains("hidden");
-  if(adminVisible&&!editable) e.preventDefault();
+document.querySelectorAll("[data-apply-slot]").forEach(b=>b.onclick=async()=>{
+  const s=Number(b.dataset.applySlot);
+  await api({action:"admin_set_day",date:dateKey(),order_slot:s,restaurant_id:$("#restaurantSelect"+s).value,cutoff_time:$("#cutoffInput"+s).value||"17:40"});
+  toast("주문 "+s+" 설정을 적용했습니다.");await refresh(true);
 });
+$("#disableSlot2Btn").onclick=async()=>{
+  if(!day(2))return toast("주문 2는 사용 중이 아닙니다.");
+  if(!await confirmModal("주문 2 사용 안 함","오늘 주문 2의 응답도 함께 삭제됩니다.","사용 안 함"))return;
+  await api({action:"admin_disable_slot",date:dateKey(),order_slot:2});st.slot=1;toast("주문 2를 숨겼습니다.");await refresh(true);
+};
+$("#resetSlot1Btn").onclick=async()=>{if(await confirmModal("주문 1 초기화","주문 1의 오늘 응답을 모두 삭제할까요?","초기화")){await api({action:"admin_reset_slot_orders",date:dateKey(),order_slot:1});toast("주문 1을 초기화했습니다.");await refresh(true)}};
+$("#resetSlot2Btn").onclick=async()=>{if(await confirmModal("주문 2 초기화","주문 2의 오늘 응답을 모두 삭제할까요?","초기화")){await api({action:"admin_reset_slot_orders",date:dateKey(),order_slot:2});toast("주문 2를 초기화했습니다.");await refresh(true)}};
+
+$("#addMemberBtn").onclick=async()=>{
+  const v=await openModal({title:"사용자 추가",fields:[{key:"name",label:"이름"}],confirmText:"추가"});if(!v?.name.trim())return;
+  await api({action:"admin_add_member",name:v.name.trim()});toast("사용자를 추가했습니다.");await refresh(true);
+};
+$("#memberAdminList").onclick=async e=>{
+  const edit=e.target.closest("[data-edit-member]"),del=e.target.closest("[data-del-member]");
+  if(edit){const u=st.members.find(x=>x.id===edit.dataset.editMember);const v=await openModal({title:"사용자 이름 수정",fields:[{key:"name",label:"이름",value:u?.name||""}],confirmText:"저장"});if(v?.name.trim()){await api({action:"admin_update_member",id:u.id,name:v.name.trim()});toast("수정했습니다.");await refresh(true)}}
+  if(del){const u=st.members.find(x=>x.id===del.dataset.delMember);if(await confirmModal("사용자 삭제",(u?.name||"사용자")+"을(를) 목록에서 삭제할까요?","삭제")){await api({action:"admin_delete_member",id:u.id});toast("삭제했습니다.");await refresh(true)}}
+};
+
+$("#addRestaurantBtn").onclick=async()=>{
+  const v=await openModal({title:"식당/매장 추가",fields:[{key:"name",label:"이름"},{key:"description",label:"설명"}],confirmText:"추가"});if(!v?.name.trim())return;
+  await api({action:"admin_add_restaurant",name:v.name.trim(),description:v.description.trim()});toast("매장을 추가했습니다.");await refresh(true);
+};
+$("#restaurantAdminList").onclick=async e=>{
+  const er=e.target.closest("[data-edit-restaurant]"),dr=e.target.closest("[data-del-restaurant]"),em=e.target.closest("[data-edit-menu]"),dm=e.target.closest("[data-del-menu]"),am=e.target.closest("[data-add-menu]");
+  if(er){const r=st.restaurants.find(x=>x.id===er.dataset.editRestaurant);const v=await openModal({title:"매장 수정",fields:[{key:"name",label:"매장명",value:r?.name||""},{key:"description",label:"설명",value:r?.description||""}],confirmText:"저장"});if(v?.name.trim()){await api({action:"admin_update_restaurant",id:r.id,name:v.name.trim(),description:v.description.trim()});toast("매장 정보를 저장했습니다.");await refresh(true)}}
+  if(dr){const r=st.restaurants.find(x=>x.id===dr.dataset.delRestaurant);if(await confirmModal("매장 삭제",(r?.name||"매장")+"을(를) 삭제할까요?","삭제")){await api({action:"admin_delete_restaurant",id:r.id});toast("삭제했습니다.");await refresh(true)}}
+  if(em){const m=st.menus.find(x=>x.id===em.dataset.editMenu);const v=await openModal({title:"메뉴 수정",fields:[{key:"name",label:"메뉴명",value:m?.name||""},{key:"price",label:"가격",type:"number",value:String(m?.price||0)}],confirmText:"저장"});if(v?.name.trim()){await api({action:"admin_update_menu",id:m.id,name:v.name.trim(),price:Number(v.price||0)});toast("메뉴를 저장했습니다.");await refresh(true)}}
+  if(dm){const m=st.menus.find(x=>x.id===dm.dataset.delMenu);if(await confirmModal("메뉴 삭제",(m?.name||"메뉴")+"을(를) 삭제할까요?","삭제")){await api({action:"admin_delete_menu",id:m.id});toast("삭제했습니다.");await refresh(true)}}
+  if(am){const v=await openModal({title:"메뉴 추가",fields:[{key:"name",label:"메뉴명"},{key:"price",label:"가격",type:"number",value:"0"}],confirmText:"추가"});if(v?.name.trim()){await api({action:"admin_add_menu",restaurant_id:am.dataset.addMenu,name:v.name.trim(),price:Number(v.price||0)});toast("메뉴를 추가했습니다.");await refresh(true)}}
+};
 
 $("#dateText").textContent=new Intl.DateTimeFormat("ko-KR",{timeZone:"Asia/Seoul",year:"numeric",month:"long",day:"numeric",weekday:"long"}).format(new Date());
-st.member=localStorage.getItem("meal-last-member")||null;
 await refresh();
-if(st.member)syncExisting();
-setInterval(()=>refresh(true,false),5000);
+setInterval(()=>{if(!$("#adminPanel").classList.contains("hidden"))return;refresh(true)},8000);
 </script>
 </body>
 </html>
