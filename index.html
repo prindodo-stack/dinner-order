@@ -131,7 +131,7 @@ details.admin-block[open]>summary:after{content:"−"}
 .admin-row{display:grid;grid-template-columns:1fr auto auto;gap:7px;align-items:center;padding:8px;background:#f8fbfc;border:1px solid var(--line);border-radius:12px}
 .admin-row.two{grid-template-columns:1fr 1.3fr auto auto}
 .admin-row.menu-admin{grid-template-columns:1fr 110px auto auto;margin-top:7px}
-.admin-name{font-weight:850;color:#36425e}
+.admin-name{font-weight:850;color:#36425e}.restaurant-title{display:inline-block;padding:6px 10px;border-radius:10px;background:linear-gradient(135deg,#293681,#4274D9);color:#fff;font-weight:900;letter-spacing:-.2px}
 .small{padding:8px 9px;border-radius:9px;font-size:11px}
 .danger-zone{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
 .modal-backdrop{position:fixed;inset:0;background:rgba(20,28,48,.38);display:none;align-items:flex-end;justify-content:center;z-index:50;padding:14px}
@@ -556,7 +556,7 @@ function renderAdmin(){
     const menus=activeM().filter(m=>m.restaurant_id===r.id);
     return `<div style="border:1px solid var(--line);border-radius:13px;padding:10px;background:#fbfcfd">
       <div class="admin-row two">
-        <div class="admin-name">${esc(r.name)}</div>
+        <div><span class="restaurant-title">${esc(r.name)}</span></div>
         <div style="color:var(--muted);font-size:12px">${esc(r.description||"")}</div>
         <button class="btn btn-light small" data-edit-restaurant="${r.id}">수정</button>
         <button class="btn btn-danger small" data-del-restaurant="${r.id}">삭제</button>
