@@ -13,8 +13,8 @@ button,input,select{font:inherit}.shell{max-width:1120px;margin:auto;padding:20p
 .top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;font-size:24px;box-shadow:0 10px 22px rgba(41,54,129,.2)}.brand h1{margin:0;color:var(--navy);font-size:27px}.brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
 .btn{border:0;border-radius:13px;padding:11px 14px;font-weight:850;cursor:pointer}.btn-light{background:#fff;border:1px solid var(--line);color:var(--navy)}.btn-primary{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}.btn-danger{background:#fff0f1;color:#bd3f4b;border:1px solid #ffd2d6}.btn-wide{width:100%}
 .banner{background:#eef7f8;border:1px solid var(--aqua);color:var(--navy);padding:12px 14px;border-radius:14px;margin-bottom:13px}
-.slotbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.slot{border:1px solid var(--line);border-radius:17px;padding:14px 15px;cursor:pointer;text-align:left;transition:.15s}.slot[data-slot="1"]{background:linear-gradient(135deg,#f1f8f7,#D0E7E6)}.slot[data-slot="2"]{background:linear-gradient(135deg,#f3f6ff,#e8efff)}.slot.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.28),0 8px 18px rgba(41,54,129,.08)}.slot small{display:block;color:var(--muted);font-weight:800}.slot strong{display:block;color:var(--navy);font-size:18px;margin-top:3px}.slot span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
-.hero{background:linear-gradient(135deg,var(--navy),var(--blue) 65%,var(--aqua));color:#fff;border-radius:23px;padding:23px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;box-shadow:0 18px 36px rgba(41,54,129,.18);margin-bottom:18px}.hero small{font-weight:800;opacity:.82}.hero h2{font-size:29px;margin:5px 0}.hero p{margin:0;opacity:.87}.cutoff{min-width:112px;padding:12px;background:rgba(255,255,255,.14);border:1px solid rgba(208,231,230,.5);border-radius:15px;text-align:center}.cutoff span{font-size:12px;display:block;opacity:.82}.cutoff strong{font-size:23px}
+.slotbar{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.slot{border:1px solid var(--line);border-radius:17px;padding:14px 15px;cursor:pointer;text-align:left;transition:.15s}.slot{background:#fff}.slot.slot-default{background:linear-gradient(135deg,#f2f6ff,#e9f0ff)}.slot.slot-cafe{background:linear-gradient(135deg,#eef4ff,#e2f1f6)}.slot.slot-korean{background:linear-gradient(135deg,#eff8f5,#dfeee9)}.slot.slot-chinese{background:linear-gradient(135deg,#fff3ee,#f8dfd4)}.slot.slot-snack{background:linear-gradient(135deg,#fff2f6,#f7e0e8)}.slot.slot-cutlet{background:linear-gradient(135deg,#fff7ed,#f2e2cc)}.slot.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.28),0 8px 18px rgba(41,54,129,.08)}.slot small{display:block;color:var(--muted);font-weight:800}.slot strong{display:block;color:var(--navy);font-size:18px;margin-top:3px}.slot span{display:block;color:var(--muted);font-size:12px;margin-top:4px}
+.hero{color:#fff;border-radius:23px;padding:23px 25px;display:flex;justify-content:space-between;align-items:center;gap:15px;box-shadow:0 18px 36px rgba(41,54,129,.18);margin-bottom:18px;transition:background .25s ease,box-shadow .25s ease}.hero.theme-default{background:linear-gradient(135deg,#293681,#4274D9 65%,#95CCDD)}.hero.theme-cafe{background:linear-gradient(135deg,#293681,#4274D9 58%,#95CCDD)}.hero.theme-korean{background:linear-gradient(135deg,#35685f,#63a99a 62%,#b9ddd7)}.hero.theme-chinese{background:linear-gradient(135deg,#8f382c,#d56a4b 62%,#edb188)}.hero.theme-snack{background:linear-gradient(135deg,#8e4666,#cf7890 62%,#e9b8c7)}.hero.theme-cutlet{background:linear-gradient(135deg,#7b5533,#bd8751 62%,#e0bd8c)}.hero small{font-weight:800;opacity:.82}.hero h2{font-size:29px;margin:5px 0}.hero p{margin:0;opacity:.87}.cutoff{min-width:112px;padding:12px;background:rgba(255,255,255,.14);border:1px solid rgba(208,231,230,.5);border-radius:15px;text-align:center}.cutoff span{font-size:12px;display:block;opacity:.82}.cutoff strong{font-size:23px}
 .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:20px;box-shadow:0 12px 28px rgba(36,49,79,.06)}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.head h3{margin:0;color:var(--navy);font-size:19px}.pill{font-size:12px;font-weight:850;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy)}
 .label{display:block;font-size:13px;font-weight:850;margin:13px 0 7px;color:#384563}.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.member{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;font-weight:850;color:#34405d;cursor:pointer}.member.active{border-color:var(--blue);background:var(--mint);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}.member.ordered:after{content:" ✓";color:var(--ok)}
 .switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.choice{min-height:47px;border:1px solid var(--line);border-radius:13px;background:#fff;font-weight:850;color:#45506a;cursor:pointer}.choice.active{background:var(--mint);border-color:var(--blue);color:var(--navy)}
@@ -160,14 +160,41 @@ function syncExisting(){
 }
 function updateEatUI(){const eat=st.eat[st.slot];$("#eatBtn").classList.toggle("active",eat);$("#skipBtn").classList.toggle("active",!eat);$("#menuArea").classList.toggle("hidden",!eat)}
 
+function restaurantTheme(r){
+  const text=`${r?.name||""} ${r?.description||""}`.toLowerCase();
+  if(/카페|커피|라떼|아메리카노|에이드|티/.test(text)) return "cafe";
+  if(/홍콩반점|중식|짜장|짬뽕|탕수육|중화/.test(text)) return "chinese";
+  if(/김밥|분식|떡볶이|라면|순대/.test(text)) return "snack";
+  if(/돈카츠|돈가스|돈까스|우동|카레/.test(text)) return "cutlet";
+  if(/순두부|찌개|백반|국밥|한식|제육/.test(text)) return "korean";
+  return "default";
+}
+function applyRestaurantTheme(r){
+  const hero=document.querySelector(".hero");
+  if(!hero)return;
+  ["default","cafe","korean","chinese","snack","cutlet"].forEach(t=>hero.classList.remove("theme-"+t));
+  hero.classList.add("theme-"+restaurantTheme(r));
+}
+function applySlotTheme(el,r){
+  if(!el)return;
+  ["default","cafe","korean","chinese","snack","cutlet"].forEach(t=>el.classList.remove("slot-"+t));
+  el.classList.add("slot-"+restaurantTheme(r));
+}
+
 function render(renderAdminPanel=true){
-  [1,2].forEach(s=>{const r=restaurant(s),d=day(s);$("#slotName"+s).textContent=r?.name||"미설정";$("#slotTime"+s).textContent=(d?.cutoff_time?.slice(0,5)||"--:--")+" 마감";document.querySelector(`[data-slot="${s}"]`)?.classList.toggle("active",st.slot===s)});
+  [1,2].forEach(s=>{
+    const r=restaurant(s),d=day(s),el=document.querySelector(`[data-slot="${s}"]`);
+    $("#slotName"+s).textContent=r?.name||"미설정";
+    $("#slotTime"+s).textContent=(d?.cutoff_time?.slice(0,5)||"--:--")+" 마감";
+    el?.classList.toggle("active",st.slot===s);
+    applySlotTheme(el,r);
+  });
   const hasSecondOrder=!!day(2);
   $("#slotBar").classList.toggle("hidden",!hasSecondOrder);
   $("#slot2Button").classList.toggle("hidden",!hasSecondOrder);
   $("#resetSlot2Btn")?.classList.toggle("hidden",!hasSecondOrder);
   if(st.slot===2 && !hasSecondOrder) st.slot=1;
-  const r=restaurant(st.slot),d=day(st.slot);$("#heroSlotLabel").textContent="주문 "+st.slot;$("#restaurantName").textContent=r?.name||"매장 미지정";$("#restaurantDesc").textContent=r?.description||"밥 당번이 이 주문의 매장을 지정해 주세요.";$("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";
+  const r=restaurant(st.slot),d=day(st.slot);$("#heroSlotLabel").textContent="주문 "+st.slot;$("#restaurantName").textContent=r?.name||"매장 미지정";$("#restaurantDesc").textContent=r?.description||"밥 당번이 이 주문의 매장을 지정해 주세요.";$("#cutoffView").textContent=d?.cutoff_time?.slice(0,5)||"--:--";applyRestaurantTheme(r);
 
   const ordered=new Set(slotOrders(st.slot).map(o=>o.member_name));
   $("#memberGrid").innerHTML=activeU().length?activeU().map(u=>`<button class="member ${st.member===u.name?"active":""} ${ordered.has(u.name)?"ordered":""}" data-member="${esc(u.name)}">${esc(u.name)}</button>`).join(""):'<div class="empty">밥 당번이 사용자를 등록해 주세요.</div>';
