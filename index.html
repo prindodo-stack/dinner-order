@@ -207,6 +207,7 @@ details.admin-block[open]>summary:after{content:"−"}
           <div id="memberGrid" class="member-grid"></div>
 
           <div id="menuSection" class="hidden">
+            <button class="btn btn-light btn-wide" id="skipOrderBtn" style="margin-bottom:10px">🙅 오늘은 안 먹어요</button>
             <label class="label">2. 메뉴 선택</label>
             <div id="menuGrid" class="menu-grid"></div>
             <button class="btn btn-light btn-wide" id="addCustomMenuBtn" style="margin-top:9px">+ 직접 메뉴 추가</button>
@@ -647,6 +648,16 @@ $("#addCustomMenuBtn").onclick=async()=>{
   st.custom[st.slot].push({id:crypto.randomUUID(),name:v.name.trim().slice(0,60),price:Math.max(0,Number(v.price||0)),quantity:1});
   renderMenu();
 };
+$("#skipOrderBtn").onclick=async()=>{
+  if(!st.member)return toast("이름을 먼저 선택해 주세요.");
+  if(cutoffPassed(st.slot))return toast("주문이 마감되었습니다.");
+  try{
+    await api({action:"submit_order",date:dateKey(),order_slot:st.slot,name:st.member,will_eat:false,items:[],note:"",token:token(st.member,st.slot)});
+    toast("미주문으로 응답했습니다.");
+    await refresh(true);
+  }catch(e){toast(e.status===409?"같은 이름으로 이미 응답되어 있습니다.":"저장 실패: "+e.message)}
+};
+
 $("#saveBtn").onclick=async()=>{
   if(!st.member)return toast("이름을 먼저 선택해 주세요.");
   if(cutoffPassed(st.slot))return toast("주문이 마감되었습니다.");
