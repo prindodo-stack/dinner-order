@@ -65,7 +65,7 @@ button{touch-action:manipulation}
 .section-title p{margin:4px 0 0;color:var(--muted);font-size:12px}
 .badge{padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850}
 .label{display:block;font-size:13px;font-weight:850;color:#3b4763;margin:12px 0 7px}
-.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.member-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.skip-choice-wrap{margin-top:18px;padding-top:14px;border-top:1px solid #edf1f3}.skip-choice{min-height:48px;background:#fff7f7;color:#b5414c;border:1px solid #f0c5c9}
 .member-btn{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;color:#35415f;font-weight:850;cursor:pointer}
 .member-btn.active{background:var(--mint);border-color:var(--blue);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
@@ -207,8 +207,10 @@ details.admin-block[open]>summary:after{content:"−"}
           <div id="memberGrid" class="member-grid"></div>
 
           <div id="menuSection" class="hidden">
-            <button class="btn btn-light btn-wide" id="skipOrderBtn" style="margin-bottom:10px">🙅 오늘은 안 먹어요</button>
-            <label class="label">2. 메뉴 선택</label>
+            <div class="skip-choice-wrap">
+              <button class="btn btn-wide skip-choice" id="skipOrderBtn">🙅 오늘은 안 먹어요</button>
+            </div>
+            <label class="label" style="margin-top:18px">2. 메뉴 선택</label>
             <div id="menuGrid" class="menu-grid"></div>
             <button class="btn btn-light btn-wide" id="addCustomMenuBtn" style="margin-top:9px">+ 직접 메뉴 추가</button>
             <div id="customMenuList" class="custom-list"></div>
@@ -477,9 +479,18 @@ function renderOrderForm(){
         ${existing.will_eat?(existing.items||[]).map(i=>`<div class="complete-item"><span>${esc(itemName(i))} ×${i.quantity}</span><strong>${money(itemPrice(i)*i.quantity)}</strong></div>`).join(""):'<div class="complete-item"><span>주문 안 함</span><strong>-</strong></div>'}
       </div>
       <div class="complete-item"><span>합계</span><strong>${money(total)}</strong></div>
-      <div class="complete-actions" style="margin-top:12px"><button class="btn btn-light" id="editMyOrder">내 주문 수정</button><button class="btn btn-danger" id="cancelMyOrder">주문 취소</button></div>`;
+      <div class="complete-actions" style="margin-top:12px"><button class="btn btn-light" id="editMyOrder">내 주문 수정</button><button class="btn btn-danger" id="cancelMyOrder">주문 취소</button></div>
+      <button class="btn btn-soft btn-wide" id="newOrderBtn" style="margin-top:8px">＋ 다른 사람 주문하기</button>`;
     $("#editMyOrder").onclick=()=>loadExistingForEdit(existing);
     $("#cancelMyOrder").onclick=()=>cancelOrder(existing.member_name);
+    $("#newOrderBtn").onclick=()=>{
+      st.member=null;
+      st.qty[st.slot]={};
+      st.custom[st.slot]=[];
+      st.note[st.slot]="";
+      renderOrderForm();
+      document.querySelector("#orderCard")?.scrollIntoView({behavior:"smooth",block:"start"});
+    };
   }else{
     $("#orderComplete").classList.add("hidden");
     $("#orderForm").classList.remove("hidden");
