@@ -100,7 +100,7 @@ button{touch-action:manipulation}
 .stat span{font-size:11px;color:var(--muted)}
 .summary-menu{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;align-self:start;min-height:0}
 .chip{display:inline-flex;align-items:center;width:auto;height:auto;min-height:28px;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850;line-height:1.2;white-space:nowrap;align-self:flex-start}
-.people-list{display:grid;gap:2px}
+.people-list{display:grid;gap:10px}.order-group{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}.order-group-title{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:12px;font-weight:900}.order-group-title.eating{background:#eef9f4;color:#176f52}.order-group-title.skipping{background:#fff3f4;color:#b5414c}.order-group-body{padding:0 10px}
 .person-row{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}
 .avatar{width:34px;height:34px;border-radius:11px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}
 .person-name{font-weight:850}
@@ -515,15 +515,34 @@ function renderSummary(){
   $("#menuSummary").innerHTML=Object.entries(count).map(([n,c])=>`<span class="chip">${esc(n)} × ${c}</span>`).join("");
   const total=e.reduce((sum,o)=>sum+(o.items||[]).reduce((ss,i)=>ss+itemPrice(i)*Number(i.quantity||0),0),0);
   $("#totalPrice").textContent=money(total);
-  $("#orders").innerHTML=list.length?list.map(o=>{
-    const dishes=o.will_eat?(o.items||[]).map(i=>`${esc(itemName(i))} ×${i.quantity}`).join(", "):"주문 안 함";
+
+  const rowHtml=o=>{
+    const dishes=(o.items||[]).map(i=>`${esc(itemName(i))} ×${i.quantity}`).join(", ");
     return `<div class="person-row">
       <div class="avatar">${esc(o.member_name.slice(0,1))}</div>
       <div class="person-name">${esc(o.member_name)}</div>
-      <div><div class="person-order">${dishes}</div>${o.note?`<div class="person-note">${esc(o.note)}</div>`:""}</div>
+      <div><div class="person-order">${dishes||"주문"}</div>${o.note?`<div class="person-note">${esc(o.note)}</div>`:""}</div>
       <button class="cancel-btn" data-cancel="${esc(o.member_name)}">취소</button>
     </div>`;
-  }).join(""):'<div style="text-align:center;color:var(--muted);padding:20px">아직 주문이 없습니다.</div>';
+  };
+
+  const skipRowHtml=o=>`<div class="person-row">
+    <div class="avatar">${esc(o.member_name.slice(0,1))}</div>
+    <div class="person-name">${esc(o.member_name)}</div>
+    <div><div class="person-order" style="color:var(--muted)">오늘은 안 먹어요</div></div>
+    <button class="cancel-btn" data-cancel="${esc(o.member_name)}">취소</button>
+  </div>`;
+
+  const groups=[];
+  groups.push(`<section class="order-group">
+    <div class="order-group-title eating"><span>🍽️ 주문자</span><span>${e.length}명</span></div>
+    <div class="order-group-body">${e.length?e.map(rowHtml).join(""):'<div style="text-align:center;color:var(--muted);padding:16px">아직 주문한 사람이 없습니다.</div>'}</div>
+  </section>`);
+  groups.push(`<section class="order-group">
+    <div class="order-group-title skipping"><span>🙅 안 먹어요</span><span>${s.length}명</span></div>
+    <div class="order-group-body">${s.length?s.map(skipRowHtml).join(""):'<div style="text-align:center;color:var(--muted);padding:16px">미주문 응답이 없습니다.</div>'}</div>
+  </section>`);
+  $("#orders").innerHTML=groups.join("");
 }
 
 function missingNames(s){
