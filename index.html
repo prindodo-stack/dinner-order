@@ -93,13 +93,13 @@ button{touch-action:manipulation}
 .complete-items{margin:11px 0;display:grid;gap:6px}
 .complete-item{display:flex;justify-content:space-between;gap:10px;font-size:13px}
 .complete-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.summary-card{display:grid;gap:12px}
+.summary-card{display:grid;gap:12px;align-content:start}
 .summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .stat{padding:11px;background:#f7fafb;border:1px solid var(--line);border-radius:13px;text-align:center}
 .stat strong{display:block;color:var(--navy);font-size:20px}
 .stat span{font-size:11px;color:var(--muted)}
-.summary-menu{display:flex;flex-wrap:wrap;gap:6px}
-.chip{padding:6px 8px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850}
+.summary-menu{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;align-self:start;min-height:0}
+.chip{display:inline-flex;align-items:center;width:auto;height:auto;min-height:28px;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850;line-height:1.2;white-space:nowrap;align-self:flex-start}
 .people-list{display:grid;gap:2px}
 .person-row{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}
 .avatar{width:34px;height:34px;border-radius:11px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}
