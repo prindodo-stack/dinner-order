@@ -69,7 +69,7 @@ button{touch-action:manipulation}
 .member-btn{min-height:50px;border:1px solid var(--line);background:#fff;border-radius:13px;color:#35415f;font-weight:850;cursor:pointer}
 .member-btn.active{background:var(--mint);border-color:var(--blue);color:var(--navy);box-shadow:0 0 0 3px rgba(149,204,221,.25)}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.menu-card{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff;cursor:pointer;transition:.12s}
+.menu-card{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff;cursor:pointer;transition:.12s;overflow:hidden}.menu-card.has-photo{padding:0}.menu-photo{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:#eef2f4}.menu-photo-body{padding:12px}.official-menu-link{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11px;font-weight:850;color:var(--blue);text-decoration:none}.official-menu-link:hover{text-decoration:underline}
 .menu-card.selected{background:#f2f8fa;border-color:var(--blue);box-shadow:0 0 0 3px rgba(149,204,221,.22)}
 .menu-head{display:flex;justify-content:space-between;gap:8px}
 .menu-name{font-weight:900;color:#2d3958}
@@ -447,13 +447,19 @@ function renderMenu(){
   }):[];
   $("#menuGrid").innerHTML=menus.length?menus.map(m=>{
     const q=Number(st.qty[st.slot][m.id]||0);
-    return `<div class="menu-card ${q>0?"selected":""}" data-menu="${m.id}">
+    const isBon=r?.name==="본도시락";
+    const body=`<div class="${m.image_url?"menu-photo-body":""}">
       <div class="menu-head"><div><div class="menu-name">${esc(m.name)}${(pop.get(m.id)||0)>0?'<span class="popular">자주 주문</span>':""}</div><div class="menu-price">${money(m.price)}</div></div></div>
+      ${isBon&&m.source_url?`<a class="official-menu-link" href="${esc(m.source_url)}" target="_blank" rel="noopener" data-official-link>공식 메뉴 사진 보기 ↗</a>`:""}
       <div class="qty-row">
         <button class="qty-btn" data-minus="${m.id}">−</button>
         <span class="qty">${q}</span>
         <button class="qty-btn plus" data-plus="${m.id}">+</button>
       </div>
+    </div>`;
+    return `<div class="menu-card ${q>0?"selected":""} ${m.image_url?"has-photo":""}" data-menu="${m.id}">
+      ${m.image_url?`<img class="menu-photo" src="${esc(m.image_url)}" alt="${esc(m.name)}" loading="lazy" referrerpolicy="no-referrer">`:""}
+      ${body}
     </div>`;
   }).join(""):'<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:18px">등록된 메뉴가 없습니다.</div>';
 
@@ -661,6 +667,7 @@ $("#memberGrid").onclick=e=>{
   st.member=b.dataset.member;localStorage.setItem("meal-last-member",st.member);renderOrderForm();
 };
 $("#menuGrid").onclick=e=>{
+  if(e.target.closest("[data-official-link]"))return;
   const plus=e.target.closest("[data-plus]"),minus=e.target.closest("[data-minus]");
   if(plus){const id=plus.dataset.plus;st.qty[st.slot][id]=Math.min(99,Number(st.qty[st.slot][id]||0)+1);renderMenu();return}
   if(minus){const id=minus.dataset.minus,n=Math.max(0,Number(st.qty[st.slot][id]||0)-1);if(n)st.qty[st.slot][id]=n;else delete st.qty[st.slot][id];renderMenu();return}
