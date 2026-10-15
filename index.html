@@ -94,16 +94,16 @@ button{touch-action:manipulation}
 .complete-item{display:flex;justify-content:space-between;gap:10px;font-size:13px}
 .complete-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .summary-card{display:grid;gap:12px;align-content:start}
-.summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.summary-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .stat{padding:11px;background:#f7fafb;border:1px solid var(--line);border-radius:13px;text-align:center}
 .stat strong{display:block;color:var(--navy);font-size:20px}
 .stat span{font-size:11px;color:var(--muted)}
 .summary-menu{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start;align-self:start;min-height:0}
 .chip{display:inline-flex;align-items:center;width:auto;height:auto;min-height:28px;padding:6px 9px;border-radius:999px;background:var(--mint);color:var(--navy);font-size:11px;font-weight:850;line-height:1.2;white-space:nowrap;align-self:flex-start}
 .people-list{display:grid;gap:10px}.order-group{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}.order-group-title{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;font-size:12px;font-weight:900}.order-group-title.eating{background:#eef9f4;color:#176f52}.order-group-title.skipping{background:#fff3f4;color:#b5414c}.order-group-body{padding:0 10px}
-.person-row{display:grid;grid-template-columns:36px 80px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}
+.person-row{display:grid;grid-template-columns:36px minmax(92px,auto) minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f3}
 .avatar{width:34px;height:34px;border-radius:11px;background:var(--mint);color:var(--navy);display:grid;place-items:center;font-weight:900}
-.person-name{font-weight:850}
+.person-name{font-weight:850;white-space:nowrap}
 .person-order{font-size:13px}
 .person-note{font-size:11px;color:var(--muted);margin-top:2px}
 .cancel-btn{border:1px solid #f0c5c9;background:#fff7f7;color:#b94450;border-radius:9px;padding:7px 8px;font-size:11px;font-weight:850;cursor:pointer}
@@ -153,11 +153,12 @@ details.admin-block[open]>summary:after{content:"−"}
   .deadline{min-width:90px}
   .member-grid{grid-template-columns:repeat(2,1fr)}
   .menu-grid{grid-template-columns:1fr}
-  .person-row{grid-template-columns:34px 68px 1fr}
+  .person-row{grid-template-columns:34px minmax(88px,auto) minmax(0,1fr)}
   .person-row .cancel-btn{grid-column:3;justify-self:start}
   .slot-admin-grid{grid-template-columns:1fr}
   .inline-grid,.admin-row.two,.admin-row.menu-admin{grid-template-columns:1fr}
   .inline-grid input[type="time"]{min-width:0;width:100%}
+  .summary-stats{grid-template-columns:1fr 1fr}
   .admin-hero{grid-template-columns:1fr 1fr}
   .admin-row{grid-template-columns:1fr auto auto}
 }
@@ -232,8 +233,9 @@ details.admin-block[open]>summary:after{content:"−"}
         <span class="badge" id="respondCount">0명 응답</span>
       </div>
       <div class="summary-stats">
-        <div class="stat"><strong id="eatCount">0</strong><span>주문</span></div>
-        <div class="stat"><strong id="skipCount">0</strong><span>미주문</span></div>
+        <div class="stat"><strong id="eatCount">0</strong><span>주문자</span></div>
+        <div class="stat"><strong id="skipCount">0</strong><span>안 먹어요</span></div>
+        <div class="stat"><strong id="totalMenuCount">0</strong><span>총 메뉴</span></div>
         <div class="stat"><strong id="menuKinds">0</strong><span>메뉴 종류</span></div>
       </div>
       <div id="menuSummary" class="summary-menu"></div>
@@ -528,7 +530,8 @@ function renderSummary(){
   const list=slotOrders(st.slot),e=list.filter(o=>o.will_eat),s=list.filter(o=>!o.will_eat),count={};
   e.forEach(o=>(o.items||[]).forEach(i=>{const n=itemName(i);count[n]=(count[n]||0)+Number(i.quantity||0)}));
   $("#respondCount").textContent=list.length+"명 응답";
-  $("#eatCount").textContent=e.length;$("#skipCount").textContent=s.length;$("#menuKinds").textContent=Object.keys(count).length;
+  const totalMenuCount=Object.values(count).reduce((sum,n)=>sum+Number(n||0),0);
+  $("#eatCount").textContent=e.length;$("#skipCount").textContent=s.length;$("#totalMenuCount").textContent=totalMenuCount;$("#menuKinds").textContent=Object.keys(count).length;
   $("#menuSummary").innerHTML=Object.entries(count).map(([n,c])=>`<span class="chip">${esc(n)} × ${c}</span>`).join("");
   const total=e.reduce((sum,o)=>sum+(o.items||[]).reduce((ss,i)=>ss+itemPrice(i)*Number(i.quantity||0),0),0);
   $("#totalPrice").textContent=money(total);
